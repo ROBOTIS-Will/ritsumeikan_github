@@ -168,12 +168,12 @@ $ source ~/.bashrc
 
 ## Bringup
 
-当指針は遠隔PCで実行できるようになっています。タートルボット指示に従っている場合は、タートルボットのPCにロスコアコマンドを実行しないでください。  
-各装置のIPアドレスが正しく設定されているのかを確認してください。  
+当内容はRemotePCで実行してください。roscoreはTurtlebotPCで実行しないでください。  
+各装置のIPアドレスが正しく設定されているかを確認してください。
 バッテリーの電圧が１１Vより低いと、アラームが鳴り続け、作動装置が非活性化されます。アラームが鳴ると、バッテリーを充電しなければなりません。 
 
 ### roscoreの実行
-[遠隔PC] roscoreを実行してください。 
+[RemotePC] roscoreを実行してください。 
 ```bash
 $ roscore
 ```
@@ -184,13 +184,13 @@ $ rostopic list
 /rosout_agg
 ```
 
-### Turtlebot3のブリングアップ 
-[タートルボット] タートルボット3の応用プログラムを始めるための基本パッケージを持ってきてください。 
+### Turtlebot3のBringup 
+[TurtlebotPC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
-タートルボット3のモデルがバーガーの場合、ターミナルにメッセージが表示されます。 
+Turtlebot3のバーガーモデルの場合、ターミナルに以下のメッセージが表示されます。 
 
 ```
 SUMMARY
@@ -245,7 +245,7 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 [INFO] [1531306698.953226]: Calibration End
 ```
 
-装置エラーメッセージと一緒に同期化の失敗がターミナルウィンドウに表示された場合、タートルボット3のセンサー装置がきちんと連結されていないことがあります。 
+同期化失敗メッセージがターミナルウィンドウに表示された場合、Turtlebot3のセンサー装置がきちんと繋がれているかを確認してください。 
 
 
 ```bash
@@ -300,9 +300,9 @@ $ rqt_graph
 
 ![](/assets/images/ritsumeikan/009.png)
 
-### Rvizにタートル3をロード 
-[遠隔PC]ロボット状態の掲示とRVizを実行します。  
-当コマンドを行う前にタートルボット3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piで使用するモデル名です。エキスポートの設定を永久設定するためには、タートルボット3_MODELのエキスポートページを参照してください。 
+### RvizにTurtlebot3をLoad 
+[RemotePC]robot_state_publisherとRVizを実行してください。  
+当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportをパーマネント設定するためには、Export Turtlebot3_MODELページを参照してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_bringup turtlebot3_remote.launch
