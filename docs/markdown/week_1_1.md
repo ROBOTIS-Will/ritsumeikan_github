@@ -300,9 +300,9 @@ $ rqt_graph
 
 ![](/assets/images/ritsumeikan/009.png)
 
-### Rvizにタートル3をロード 
-[遠隔PC]ロボット状態の掲示とRVizを実行します。  
-当コマンドを行う前にタートルボット3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piで使用するモデル名です。エキスポートの設定を永久設定するためには、タートルボット3_MODELのエキスポートページを参照してください。 
+### RvizにTurtlebot3をLoad 
+[RemotePC]robot_state_publisherとRVizを実行してください。  
+当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportをパーマネント設定するためには、Export Turtlebot3_MODELページを参照してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_bringup turtlebot3_remote.launch
