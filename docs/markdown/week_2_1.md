@@ -113,9 +113,27 @@ LDS 센서의 값을 시각적으로 확인하기 위해서는 Qt Creator와 Qt 
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/appendix_lds/lds_gui.png)
 
-### Embedded에서 실행하기
+### Embedded 보드에서 실행하기
+
+LDS-01 센서는 OpenCR 또는 아두이노 보드에서 동작시켜볼 수 있습니다.  
+이 경우, 센서 데이터의 시각화를 위한 LCD 패널이 필요합니다.
+
+LDS-01 센서의 TX, RX 케이블은 embedded 보드의 UART 핀과 호환되며, embedded 보드에 전원과 TX, RX 핀을 연결하여 사용할 수 있습니다.
+실제 케이블의 색상은 아래 그림과 다를 수 있으므로 반드시 제품 데이터시트를 참고하시기 바랍니다.
 
 ![](/assets/images/ritsumeikan/lds_lines.png)
+
+#### OpenCR에서 LDS센서 읽어오기
+OpenCR 보드에서 센서값을 읽어오려면 Arduino 예제를 OpenCR 보드에 업로드 해야합니다.
+
+1. Arduino IDE의 Tools > Board > Boards Manager 에서 OpenCR을 검색해서 라이브러리를 설치합니다.
+2. Tools > Board에서 OpenCR을 선택합니다.
+3. Tools > Port에서 OpenCR이 연결된 포트를 선택합니다.
+4. File > Examples > OpenCR > Etc > LDS > drawLDS 예제를 선택해서 OpenCR에 업로드합니다.
+
+예제가 성공적으로 업로드되면 OpenCR과 연결된 LCD에 아래 이미지와 같이 센서의 값이 시각적으로 보여지게 됩니다.
+
+![](/assets/images/ritsumeikan/011.png)
 
 # Making environmental map(SLAM)
 

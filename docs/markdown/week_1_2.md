@@ -61,7 +61,7 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 - publish : cmd_vel
 
 turtlebot3_teleop_key.launchファイルを実行して生成されたturtlebot3_teleop_keyboardノードでは、キーボードの入力を読み取ってlinearとangular値を更新し、linearとangularが含まれたtwist形式のtopicであるcmd_velをpublishします。  
-その後、タートルボットのSBCで実行されたturtlebot3_robot.launchに含まれたturtlebot3_core.launchからcmd_velを受信します。  
+その後、Turtlebot3のSBCで実行されたturtlebot3_robot.launchに含まれたturtlebot3_core.launchからcmd_velを受信します。  
 cmd_velトピックはrosserialを介してOpenCRに伝達され、OpenCRにアップロードされたファームウェアでDYNAMIXELを制御するためのコマンドとして出力されます。  
 受信されたコマンドに従って車輪と接続されたDYNAMIXELが駆動し、ロボットを動かします。
 {% endcapture %}
