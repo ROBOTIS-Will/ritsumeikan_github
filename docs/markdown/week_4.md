@@ -1,371 +1,29 @@
-# I. Learning ROS Environment
+---
+layout: splash
+lang: en
+ref: ritsumeikan4
+permalink: /docs/ritsumeikan/week4/
+sidebar:
+  title: RITSUMEIKAN
+  nav: "ritsumeikan4"
+---
 
-## I-1. ROS Installation and environment configuration
+# Extension
 
-## I-2. Basic ROS commands
+## Machine Learning I : object_detector_3d
 
-
-# II. TurtleBot3 Operation
-
-## II-1. Network Setup
-
-## II-2. Bringup
-
-## II-3. Teleoperation
-
-
-# III. Gazebo Simulator & Switching Sim - Real robot
-
-## III-1. Simulation
-
-## III-2. SimulationとReal Robotのクロス開発
-
-### III-2-A. 目標
-20台のタートルボットと40台のsimulationの間に円滑なクロス開発が可能な環境およびネットワーク構成案、交互開発のための実行方法の提示
-
-### III-2-B. ネットワーク構成案
-- 仮定
-  - すべてのTB3とユーザーPC（Simulation）は、固定IPアドレスを持つ。
-    ユーザーPCは固定IPアドレスでない場合でも動作可能だと思われるが、ROSネットワーク設定を容易にするために固定IPの使用を推奨。
-  - 各ユーザーは、自分の使用するTB3のIPアドレスを知っている。
-
-1. 第1案  
-ルータを複数台使用（5台）、4台のTB3と8人（Simulator含む）が一つのルータを使用する（推奨）
-
-2. 第2案  
-高性能ルータに40人と20台のTB3すべてを接続（クライアントの要求）
-
-### III-2-C. ネットワーク設定(第1案)
-
-1. ルータ設定  
-    - SSIDおよびルータIP（IP帯域）：ルータごとに設定方法が異なるため、詳細な説明は省略
-        - Turtlebot_Server_1 : 10.17.1.1 (10.17.1.x)
-        - Turtlebot_Server_2 : 10.17.2.1 (10.17.2.x)
-        - Turtlebot_Server_3 : 10.17.3.1 (10.17.3.x)
-        - Turtlebot_Server_4 : 10.17.4.1 (10.17.4.x)
-        - Turtlebot_Server_5 : 10.17.5.1 (10.17.5.x)
-
-2. Turtlebot3 ネットワーク設定  
-    - IPアドレスの例 (Turtlebot_Server_1の場合)
-        - [Turtlebot3] IP : 4台
-            - 10.17.1.11
-            - 10.17.1.12 
-            - 10.17.1.13
-            - 10.17.1.14
-        - [User PC] IP : 8台
-            - 10.17.1.21
-            - 10.17.1.22
-            - 10.17.1.23
-            - 10.17.1.24
-            - 10.17.1.25
-            - 10.17.1.26
-            - 10.17.1.27
-            - 10.17.1.28
-        - 上記のような方式のアドレスで、残り4台のサーバーに接続しているTurtlebot3とユーザーPCのIPアドレスを設定
-
-    - ネットワーク設定
-        - [Turtlebot3] (10.17.1.11の場合)
-            1. Turtlebotにキーボード、マウス、モニタを接続した後、Raspberry Piを起動
-            2. ターミナルウィンドウを開き、/etc/dhcpcd.confファイルのstatic IP部分を変更  
-                ```
-                $ sudo nano /etc/dhcpcd.conf
-                ```
-            3. 以下の内容を追加
-                ```                
-                interface wlan0
-                static ip_address=10.17.1.11/24
-                static routers=10.17.1.1
-                static domain_name_servers=8.8.8.8
-                ```
-            4. ファイルを保存して再起動
-                ```
-                $ sudo reboot
-                ```
-            5. ルータに接続し、IPアドレスを確認  
-            ターミナルを開いて以下のように入力
-                ```
-                $ ifconfig
-                ```
-
-        - [User PC] (10.17.1.21の場合)
-            1. ネットワークマネージャを開いて以下のように設定
-
-            2. ルータに接続した後、IPアドレスを確認
-                ```
-                $ ifconfig
-                ```
-
-### III-2-D. ネットワーク設定(第2案)
-1. ルータ設定
-    - SSIDおよびルータIP（IP帯域）：ルータごとに設定方法が異なるため、詳細な説明は省略
-        - Turtlebot_Server : 10.17.1.1 (10.17.1.x)
-2. Turtlebot3 ネットワーク設定 (便宜上、固定IPを使用)
-    - IPアドレスの例 
-        - [Turtlebot3] IP : 20台
-            - 10.17.1.11〜30
-        - [User PC] IP : 40台
-            - 10.17.1.101〜140
-    - ネットワーク設定
-        - [Turtlebot3] (10.17.1.11の場合)
-            1. Turtlebotにキーボード、マウス、モニタを接続した後、Raspberry Piを起動
-            2. ターミナルウィンドウを開き、`/etc/dhcpcd.conf`ファイルの`static IP`部分を変更
-                ```
-                $ sudo nano /etc/dhcpcd.conf
-                ```
-            3. 以下の内容を追加
-                ```
-                interface wlan0
-                static ip_address=10.17.1.11/24
-                static routers=10.17.1.1
-                static domain_name_servers=8.8.8.8
-                ```
-            4. ファイルを保存して再起動
-                ```
-                $ sudo reboot
-                ```
-            5. ルータに接続し、IPアドレスを確認  
-            ターミナルを開いて以下の通り入力
-                ```
-                $ ifconfig
-                ```
-        - [User PC] (10.17.1.101の場合)
-            1. ネットワークマネージャを開いて以下のように設定し、保存
-
-            2. ルータに接続し、IPアドレスを確認
-                ```
-                $ ifconfig
-                ```
-
-### III-2-E. ROS ネットワーク設定
-1. [Turtlebot3]
-    - 追加でROSネットワーク設定を行う必要なし
-
-2. [User PC]
-    - 参考 : [e-Manual](http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration)
-    - ユーザーPCのIP例: 10.17.1.101
-    - ユーザーPCのIPを確認（以下のコマンドを入力すると、上で設定したユーザーPCの静的IPが出力される。
-        ```
-        $ ifconfig
-        ```
-    - `~/.bashrc` ファイルを修正：以下のコードがある場合は修正し、ない場合は追加
-        ```
-        export ROS_MASTER_URI=http://10.17.1.101:11311
-        export ROS_HOSTNAME=10.17.1.101
-        ```
-
-### III-2-F. その他の設定
-1. [Turtlebot3]
-    - machineタグを利用したlaunchファイルで使用する`env.bash`ファイルの生成 (位置 : /home/pi)
-        ```
-        $ nano ~/env.bash
-        ```
-
-        ```
-        #!/bin/bash
-
-        # check if other turtlebot3_core is already running
-        is_running=`ps ax | grep turtlebot3_core`
-        IFS=' ' read -ra is_runnings <<< "$is_running"
-        process_name=${is_runnings[4]}
-        if [ ${process_name} == "python" ]
-        then
-        echo "other turtlebot3_core is already running."
-        exit 1
-        fi
-
-        #### ROS ####
-        source /opt/ros/kinetic/setup.bash
-        source ~/catkin_ws/devel/setup.bash
-
-        #### ROS Network ####
-        ip_address=`hostname -I`
-        ip_address_trim=${ip_address%% * }
-        ip_address_no_space="$(echo -e "${ip_address_trim}" | tr -d '[:space:]')"
-        export ROS_HOSTNAME=${ip_address_no_space}
-
-        ##### Set TURTLEBOT3 Model ####
-        export TURTLEBOT3_MODEL=waffle_pi
-
-        exec "$@"
-        ```
-
-    - `env.bash`ファイルに実行権限を追加
-        ```
-        $ chmod +x ~/env.bash
-        ```
-
-2. [User PC]
-    - 接続したTurtlebot3のssh keyを生成、以下で作成するscriptを利用
-    - keygen script製作：ssh-keyscanで複数のアルゴリズムを利用したkey生成
-        1. script生成
-            ```
-            $ nano ~/tb3_ssh_keygen
-            ```
-
-            ```
-            #!/bin/bash
-            argc=$#
-            args=("$@")
-
-            if [ 0 -eq $argc ]
-            then   	 
-            echo "need to argument that host ip for ssh connection"
-            echo "Usage: $0 [ip address] ..."
-            exit 1
-            fi
-
-            for((index = 0; index < $#; index++ ))
-            do
-            ssh-keygen -R ${args[$index]}
-            ssh-keyscan ${args[$index]} >> ~/.ssh/known_hosts
-            done
-            ```
-
-        2. 実行権限を追加
-            ```
-            $ chmod +x ~/tb3_ssh_keygen
-            ```
-        3. script実行（ex.TB3のIPアドレスが10.17.3.11〜30である場合、20台のTB3に固定IPを設定後、TB3が起動している状態でコマンドを実行する必要がある）
-            ```
-            $ ~/tb3_ssh_keygen 10.17.3.11 10.17.3.12 10.17.3.13 10.17.3.14 10.17.3.15\
-            10.17.3.16 10.17.3.17 10.17.3.18 10.17.3.19 10.17.3.20\
-            10.17.3.21 10.17.3.22 10.17.3.23 10.17.3.24 10.17.3.25\
-            10.17.3.26 10.17.3.27 10.17.3.28 10.17.3.29 10.17.3.30
-            ```
-    - turtlebot3_robot_machine.launch 制作
-        1. machineタグはnode用タグでありincludeタグでは動作しない。turtlebot3_robot.lauchファイルの修正が必要
-        2. [Turtlebot3] turtlebot3_robot.launchの代替用途、実行時Turtlebotに直接接続する必要なし、Turtlebot3のROSネットワーク設定を変更する必要もなし。
-        3. turtlebot3/turtlebot3_bringup/launchフォルダに以下のファイルを生成
-            ```
-            $ nano turtlebot3_robot_machine.launch
-            ```
-
-            ```
-            <?xml version="1.0"?>
-            <launch>
-            <arg name="multi_robot_name" default=""/>
-            <arg name="set_lidar_frame_id" default="base_scan"/>
-            <arg name="address" default="10.17.3.91"/>
-            <arg name="env_name" default="env.bash"/>
-            <arg name="user_name" default="pi"/>
-            <arg name="password" default="turtlebot"/>
-            
-            <!-- setting for machine -->
-            <machine name="tb3" address="$(arg address)" env-loader="~/$(arg env_name)" user="$(arg user_name)" password="$(arg password)" />
-
-            <!-- packages for turtlebot3 -->
-            <node machine="tb3" pkg="rosserial_python" type="serial_node.py" name="turtlebot3_core" output="screen">
-                <param name="port" value="/dev/ttyACM0"/>
-                <param name="baud" value="115200"/>
-                <param name="tf_prefix" value="$(arg multi_robot_name)"/>
-            </node>
-            
-            <node machine="tb3" pkg="hls_lfcd_lds_driver" type="hlds_laser_publisher" name="turtlebot3_lds" output="screen">
-                <param name="port" value="/dev/ttyUSB0"/>
-                <param name="frame_id" value="$(arg set_lidar_frame_id)"/>
-            </node>
-
-            <node machine="tb3" pkg="turtlebot3_bringup" type="turtlebot3_diagnostics" name="turtlebot3_diagnostics" output="screen"/>
-
-            </launch>
-            ```
-
-
-### III-2-G. Turtlebot3, Simulation切り替え実行方法  
-すべて[User PC]（Remote PC）で実行
-1. TB3実行方法
-    - roscore  
-    ターミナルを開いて以下のコマンドを入力
-        ```
-        $ roscore
-        ```
-
-    - Turtlebot (リモート)駆動 : turtlebot3_robot_machine.launch  
-    別のターミナルを開いて、以下のコマンドを入力（接続しようとするturtlebot3のIPアドレスが10.17.1.11であると仮定）  
-    ```
-    $ roslaunch turtlebot3_bringup turtlebot3_robot_machine.launch address:=10.17.1.11
-    ```  
-    
-    ![イメージリンク](http://emanual.robotis.com/assets/images/platform/turtlebot3/bringup/run_rviz.jpg)
-    
-    1. SSHエラー発生時は、以下のコマンドを入力して再実行 
-        ```
-        $ ~/tb3_ssh_keygen 10.17.3.11
-        ```
-    2. 他のユーザーがTurtlebotを使用している場合、launchファイル実行時に以下のメッセージが出て終了
-        ```
-        RLException: remote roslaunch failed to launch: tb3
-        The traceback for the exception was written to the log file
-        ```
-
-    - Robot Model & TF : turtlebot3_remote.launch  
-    別のターミナルを開いて、以下のコマンドを入力
-        ```
-        $ roslaunch turtlebot3_bringup turtlebot3_remote.launch
-        ```
-
-    - RVIZ  
-    新たにターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力）
-        ```
-        $ export TURTLEBOT3_MODEL=${TB3_MODEL}
-        $ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz
-        ```
-
-2. Simulation(Gazebo) 実行方法
-参考 : [e-Manual](http://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#turtlebot3-simulation-using-gazebo)
-
-    - roscore  
-    ターミナルを開いて、以下のコマンドを入力
-        ```
-        $ roscore
-        ```
-
-    - gazebo実行  
-    別のターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力）
-        ```
-        $ export TURTLEBOT3_MODEL=${TB3_MODEL}
-        $ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
-        ```
-
-    - RVIZ  
-    新たにターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は$ {TB3_MODEL}の代わりにwaffle_piを入力）
-        ```
-        $ export TURTLEBOT3_MODEL=${TB3_MODEL}
-        $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
-        ```
-    ![イメージリンク](http://emanual.robotis.com/assets/images/platform/turtlebot3/simulation/turtlebot3_gazebo_rviz.png)
-
-
-3. 使用切り替え
-    - リアルタイムでの切り替え：gazeboは/ use_sim_timeパラメータを使用しており、リアルタイムでの切り替え（roscoreを維持した切り替え）が困難
-    - 切り替え方法
-        - roscoreを含むすべてのnodeを終了（実行したターミナルで`CTRL` + `C`キーを入力）
-        - 上記の実行方法に従って切り替え
-    - Turtlebot3 実ロボットとSimulationの比較
-
-|      | タートルボット3  | シミュレーション(Gazebo) |
-|:----:|:----------------|:------------------------|
-| 環境 | 多様な実際の環境 |ガゼボ環境<br />- 提供<br />&nbsp;&nbsp;- Empty World<br />&nbsp;&nbsp;- Turtlebot3 World<br />&nbsp;&nbsp;- Turtlebot3 House<br />- ユーザーが制作した環境<br />![img]()|
-|モデル|Burger<br/>Waffle<br/>Waffle Pi|Burger<br/>Waffle<br/>Waffle Pi|
-|センサーおよびトピック名|LIDAR : /scan<br />IMU : /imu<br />CAMERA(Waffle Pi) : /raspicam_node/image/compressed|LIDAR : /scan<br />IMU : /imu<br />CAMERA(Waffle, Waffle Pi) : <br />&nbsp;&nbsp;/camera/rgb/image_raw,<br />&nbsp;&nbsp;/camera/rgb/image_raw/compressed
-|使用機器|Turtlebot3(Burger, Waffle, Waffle Pi)<br />Remote PC(User PC)|Remote PC(User PC)|
-
-
-
-## III-3. Machine Learning I : object_detector_3d
-
-### III-3-A. 目標
+### 目標
 Machine Learningフレームワークの一つであるchainerを利用して物体を認識し、Depth cameraと連動してその物体との距離を求める。(リンク : [chainer](https://chainer.org/))
 
 
-### III-3-B. 動作環境
+### 動作環境
 - Ubuntu 16.04
 - ROS Kinetic
 - Python 2.7.16
 - Intel RealSense D435
 
 
-### III-3-C. 設定(Setup)
+### 設定(Setup)
 1. ROS Kineticをインストール : [wiki.ros.org](http://wiki.ros.org/kinetic/Installation/Ubuntu)を参照
 
 2. RealSense D435 ROSパッケージをインストール
@@ -379,6 +37,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
         $ pip install chainer chainercv
         ```
         > pipがない場合はインストール
+        
         ```
         $ sudo apt install python-pip
         ```
@@ -413,7 +72,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
         $ catkin_make
         ```
  
-### III-3-D. 実行（PCによって異なるが、実行に数秒以上必要）
+### 実行（PCによって異なるが、実行に数秒以上必要）
 1. realsense & object_detector_3d node
     ```
     $ roslaunch object_detector_3d run.launch
@@ -424,22 +83,24 @@ Machine Learningフレームワークの一つであるchainerを利用して物
     ```
 
 
-### III-3-E. 実行画面
+### 実行画面
 
-![img]()
+![](/assets/images/ritsumeikan/week4_01.png)
+
 > 画面左：rostopic echo /object_detection_3dによる出力が表示されている。
 
 > 画面右上：rvizを介して/object_detection_3d/result_imageが表示されている。
 
-画面右上を見ると、手前からキーボード、マグカップ、瓶、2台のモニターがそれぞれ検出されていることが分かる。
-それぞれの探知にキャプションが付いており、以下の情報が表示されている。
-- 物体の名前
-- 検出スコア。 区間[0，1]に含まれる数値で、1に近いほど信頼度が高いことを意味する。
-- 物体の中心点（後述）の3次元座標。 座標系の原点はカメラの中心であり、x、y、z軸方向は、それぞれ右、下、内側方向で、単位はメートル。
+  画面右上を見ると、手前からキーボード、マグカップ、瓶、2台のモニターがそれぞれ検出されていることが分かる。
+  それぞれの探知にキャプションが付いており、以下の情報が表示されている。
+
+  - 物体の名前
+  - 検出スコア。 区間[0，1]に含まれる数値で、1に近いほど信頼度が高いことを意味する。
+  - 物体の中心点（後述）の3次元座標。 座標系の原点はカメラの中心であり、x、y、z軸方向は、それぞれ右、下、内側方向で、単位はメートル。
 
 5つの検出結果のうち、深さ方向の距離であるz値を見ると、物体の位置が手前から奥に行くほど値が大きくなっていることを確認できる。
 
-### III-3-F. ROS ノード
+### ROS ノード
 1. Topic
     - Subscribed Topics
         - /camera/color/image_raw [sensor_msgs/Image]  
@@ -478,7 +139,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
         - realsense2_camera.Extrinsics:点群の座標系からカラーカメラ座標系に変換するための外部パラメータ
 
 
-### III-3-G. 実装の詳細 (Implementation details)
+### 実装の詳細 (Implementation details)
 1. 入出力データ
     - 入力
         - 2Dカメラ画像
@@ -523,20 +184,20 @@ Machine Learningフレームワークの一つであるchainerを利用して物
     単純であるため省略。
 
 
-## III-4. Machine Learning II: YOLO
+## Machine Learning II: YOLO
 
-### III-4-A. 目標
+### 目標
 ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Look Once）はリアルタイム物体探索システムで、他の物体認識エンジンに比べて高速性を誇る。YOLOはDNN（deep neural network）を学習させて実行するニューラルネットワークフレームワーク（neural network framework）であるdarknetを利用して駆動。
 
-![img]()
+![](/assets/images/ritsumeikan/week4_02.png)
 
-### III-4-B. 動作環境
+### 動作環境
 - Ubuntu 16.04
 - ROS Kinetic
 - Intel RealSense D435
 
 
-### III-4-C. 設定(Setup)
+### 設定(Setup)
 - ROS Kinetic をインストール : [wiki.ros.org](http://wiki.ros.org/kinetic/Installation/Ubuntu)を参照のこと
 
 - RealSense D435 ROS パッケージをインストール  
@@ -577,7 +238,7 @@ ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Loo
                 queue_size: 1
             ```
 
-### III-4-D. 実行（すでに学習したモデルを使用）
+### 実行（すでに学習したモデルを使用）
 1. realsense
     ```
     $ roslaunch realsense2_camera rs_camera.launch
@@ -588,14 +249,14 @@ ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Loo
     $ roslaunch darknet_ros darknet_ros.launch
     ```
 
-### III-4-E. 実行画面
+### 実行画面
 
-![img]()
+![](/assets/images/ritsumeikan/week4_03.png)
 
 > 上の写真のように複数の物体が同時に認識され、認識された物体の境界にボックスが表示され、物体の名前がボックスの左上に現れる。
 
 
-### III-4-F. ROSノード
+### ROSノード
 1. Topic
     - Subscribed Topics
         - /camera/color/image_raw [sensor_msgs/Image]  
@@ -647,11 +308,11 @@ ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Loo
     - yolo_model/detection_classes/names (array of strings) 
         ネットワークが検出可能な物体の名前(検出可能な物体のクラス)
 
-### III-4-G. GPUアクセラレーション
+### GPUアクセラレーション
 NVidia GPUがある場合、CUDAを利用するとCPUのみを使用するよりも何倍も高速な検出が可能である。CUDAをインストールすると、CMakeLists.txtファイルから自動的に認識し、コンパイル（catkin_make）時にGPUモードでコンパイルされる。
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit)
 
 
-### III-4-H. 参考サイト
+### 参考サイト
 - [darknet](https://pjreddie.com/darknet/yolo/)
 - [darknet_ros](https://github.com/leggedrobotics/darknet_ros)

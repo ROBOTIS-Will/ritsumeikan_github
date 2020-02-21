@@ -46,8 +46,6 @@ $ roslaunch turtlebot3_fake turtlebot3_fake.launch
 **roslaunch turtlebot3_fake turtlebot3_fake.launch**
 - publish : odom, joint_states
 - subscribe : cmd_vel
-
-turtlebot3_fake 노드에서는 하드웨어의 실제 값이 아닌 계산된 값을 이용해 시뮬레이터가 실제 하드웨어와 유사하게 동작하도록 합니다. 입력된 cmd_vel로 계산된 가상의 Turtlebot3의 odom과 joint_states 값을 계산하여 시뮬레이터에 전달하기 위해 publish 합니다.
 {% endcapture %}
 <div class="notice--success">{{ capture01 | markdownify }}</div>
 
