@@ -15,7 +15,7 @@ LDSセンサーはUSBインターフェースであるUSB2LDSボードを通じ�
 
 センサーの特性上、直射日光が強く当たる屋外環境では使用が困難で、10,000lux以下の明るさの屋内空間で走行するロボットに適しています。
 
-TurtleBot3의 LDS 센서는 패키지의 형태로 설치하거나 소스코드를 다운로드 받아서 빌드할 수 있습니다.
+TurtleBot3のLDSセンサーは、パッケージの形でインストールするか、ソースコードをダウンロードしてビルドすることができます。
 
 ## センサーパッケージをインストール
 ```bash
@@ -154,12 +154,18 @@ SLAMでマップを作成する際、いくつかの注意点があります。
 一般的によく使用されるGmappingとCatographerには、地図を作成する方法に若干の違いがあります。mapをすぐにpublishするGmappingとは異なり、Catographerはsubmapをpublishし、submapを集めてmapを生成します。これによって、互いに繋がった広範囲の地図を作成する場合には、Catographerがより正確な形の地図を作る助けになります。
 
 
-## スラムノードの実行
-1. [遠隔PC] ロスコアを実行してください。 
-2. [タートルボット] タートルボット３の応用プログラムを始めるための基本パッケージを持ってきてください。 
-3. [遠隔 PC] 新しいターミナルをオープンしてスラムファイルを実行してください。  
-  当コマンドを行う前にタートルボット３のモデル名を指定しなければなりません。$ {TB3_MODEL}は、バーガー、ワッフル、ワッフルパイ(waffle_pi)で使用するモデル名です。エキスポートの設定を永久設定するためには、タートルボット３_MODELのエキスポートページを参照してください。 
+## SLAMを実行する
+1. [Remote PC] roscoreを実行します。  
+  ```bash
+  $ roscore
+  ```
 
+2. [Turtlebot PC] TurtleBot3駆動のための基本パッケージを実行します。  
+  ```bash
+  $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+  ```
+
+3. [Remote PC] 新たにターミナルウィンドウを開き、SLAMを実行します。以下のコマンドで`${TB3_MODEL}`をTurtleBot3のモデル名のいずれかに変える必要があります。使用中のロボットに合わせて `burger`、`waffle`、`waffle_pi`の中から選択することができます。
   ```bash
   $ export TURTLEBOT3_MODEL=${TB3_MODEL}
   $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
@@ -189,58 +195,14 @@ SLAMでマップを作成する際、いくつかの注意点があります。
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
 
-- TurtleBot3様々なスラムメソッドを支援 
-  - タートルボット３は様々なスラム方法でGmapping、cartographer、ヘクター、カルトを支援します。slam_methods:= xxxxx オプションを変更して行うことができます。
-  - slam_methodsオプションには、`gmapping`, `cartographer`, `hector`, `karto`, `frontier_exploration`が含まれているため、、その一つを選択することができます。
-  - 例えば、カルトは下記のように使用できます。
-    ```bash
-    $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=karto
-    ```
 
-- スラムパッケージに対するサブパッケージをインストール 
-  - cartographerの場合： 
-    ```bash
-    $ sudo apt-get install ros-kinetic-cartographer ros-kinetic-cartographer-ros ros-kinetic-cartographer-ros-msgs ros-kinetic-cartographer-rviz 
-    ```
-  - Hector Mappingの場合： 
-    ```bash
-    $ sudo apt-get install ros-kinetic-hector-mapping
-    ```
-  - Kartoの場合 : 
-    ```bash
-    $ sudo apt-get install ros-kinetic-karto 
-    ```
-  - Frontier Explorationの場合 : 
-    ```bash
-    $ sudo apt-get install ros-kinetic-frontier-exploration ros-kinetic-navigation-stage
-    ```
+### TurtleBot3は、様々な方式のSLAMをサポートしています。
+Gmapping、cartographerといった複数のSLAMをサポートし、コマンド上で`slam_methods`のパラメータ値として直接入力することにより、選択することができます。
+入力可能なオプションには、`gmapping`、`cartographer`、`hector`、`karto`、`frontier_exploration`があります。
 
-上記の命令を実行すると、ビジュアル化ツールRVizが実行されます。RVizを別途実行するためには、下記の命令の一つを使用してください。 
+例としては、Gmappingの代わりにGoogle社のcartographerをSLAMとして使用する場合は、以下のようにslam_methodsの引数値でcartographerを伝達しSLAMノードを実行することもできます。 
 
 ```bash
-$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_gmapping.rviz
-$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_cartographer.rviz
-$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_hector.rviz
-$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_karto.rviz
-$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_frontier_exploration.rviz
-```
-
-cartographerバージョン0.3.0でテストしました。Googleで開発したCartographerパッケージは、ROSメロディック で0.3.0バージョンを支援しますが、ROSKineticでは0.2.0バージョンを支援します。ROSKineticでバイナリファイルをダウンロードする代わりに、下記のようにソースコードをダウンロードしてビルドしなければなりません。より詳細なインストール指針は[公式ウィキページ](https://google-cartographer-ros.readthedocs.io/en/latest/#building-installation)を参照にしてください。
-
-```bash
-$ sudo apt-get install ninja-build libceres-dev libprotobuf-dev protobuf-compiler libprotoc-dev
-$ cd ~/catkin_ws/src
-$ git clone https://github.com/googlecartographer/cartographer.git
-$ git clone https://github.com/googlecartographer/cartographer_ros.git
-$ cd ~/catkin_ws
-$ src/cartographer/scripts/install_proto3.sh
-$ rm -rf protobuf/
-$ rosdep install --from-paths src --ignore-src -r -y --os=ubuntu:xenial
-$ catkin_make_isolated --install --use-ninja
-```
-
-```bash
-$ source ~/catkin_ws/install_isolated/setup.bash
 $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=cartographer
 ```
 
@@ -268,9 +230,38 @@ $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=cartographer
 {% endcapture %}
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
+デフォルトで提供しているGmapping以外のSLAMを使用するには、以下のように関連パッケージをインストールする必要があります。
+- cartographerをインストール：現時点で最新バージョンのcartographer(v1.0.0)は、2018年以来アップデートされておらず、TurtleBot3パッケージでシミュレーション行う場合、正常に駆動しない場合があります。TurtleBot3のSLAMをシミュレーションする際にはGmappingを使用してください。
+  ```bash
+  $ sudo apt-get install ros-kinetic-cartographer ros-kinetic-cartographer-ros ros-kinetic-cartographer-ros-msgs ros-kinetic-cartographer-rviz
+  ```
+- Hector Mappingをインストール
+  ```bash
+  $ sudo apt-get install ros-kinetic-hector-mapping
+  ```
+- Kartoをインストール
+  ```bash
+  $ sudo apt-get install ros-kinetic-karto 
+  ```
+- Frontier Explorationをインストール
+  ```bash
+  $ sudo apt-get install ros-kinetic-frontier-exploration ros-kinetic-navigation-stage
+  ```
 
-## 遠隔ノードの運営 
-[遠隔 PC] 新しいターミナルをオープンして遠隔ノードを実行してください。次のコマンドを使用すると、使用者がスラム操作をマニュアルで行うようにロボットをコントロールすることができます。変更が速すぎたリ、回転を速くしたりする過激な動きは避けることをおすすめします。ロボットを使用してマップを作成する際、ロボットは測定する環境のあらゆるところをスキャンしなければなりません。クリーンマップを作成するためには、いくつかの経験が必要ですので、スラムを何回か練習して方法を身につけてください。マッピングプロセスは下記のイメージのようです。
+SLAMノードが正常に駆動している場合、以下のように様々な方式のSLAMを適用した視覚化ツールであるRVizを別途実行することもできます。既に実行されているRVizがある場合、プログラムの衝突が発生することがあります。
+
+```bash
+$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_gmapping.rviz
+$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_cartographer.rviz
+$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_hector.rviz
+$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_karto.rviz
+$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_frontier_exploration.rviz
+```
+
+## 遠隔操作ノードを実行する
+[Remote PC] SLAMを行うためには、マップが描かれていない領域にTurtleBot3を動かす必要があります。そのために、TurtleBot3を遠隔で制御することのできるノードを以下のように実行します。
+
+SLAMを行う際は、過度に激しい動きや急な方向転換などを避けることが正確な地図の作成に役立ちます。RViz上で描かれた地図を見ながら、未完成の領域にロボットを動かし、地図を完成させる必要があります。
 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -294,20 +285,22 @@ CTRL-C to quit
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/slam_running_for_mapping.png)
 
-## チューニングガイド 
-Gmappingには様々な環境に対して性能を変更させるたくさんのパラメータがあります。ROSウィキですべてのパラメータに対する情報を得るか、ROSロボットプログラミングの第11章を参照にしてください。 
-重要なパラメータを設定するチューニングガイドはいくつかのTIPを提供します。パフォーマンスを環境によって変更するためには、TIPが役に立つのはもちろん、事案節約にもなります。 
+
+## チューニングガイド
+Gmappingは、さまざまな環境に最適化されたパフォーマンスを実現するために、複数のパラメータの設定が可能です。Gmappingは一般的に別途設定なしに使用が可能であり、デフォルト設定で使用する場合が多いものです。設定可能なパラメータのリストは、[ROS wikiのGmappingパラメータ](http://wiki.ros.org/gmapping#Parameters)ページを参照してください。
+
+以下のパラメータは、`turtlebot3_slam/launch/turtlebot3_gmapping.launch`ファイルに定義されており、ファイルを実行する際にroscoreのパラメータサーバーにロードされ、gmappingをベースにしたSLAMに適用されます。
 
 ### maxUrange
-このパラメータはライダーセンターの最大使用可能範囲を設定します。 
+このパラメータはLDSセンサーの最大使用可能範囲を設定します。 
  
 ### map_update_interval 
-マップをアップデートする期間(秒段位)この値が低いと、マップが頻繁にアップデートされます。しかし、より大きな計算負荷がかかります。環境に基づいてこのパラメータを設定してください。 
+マップをアップデートする期間(秒単位)この値が低いと、マップがもっと頻繁にアップデートされます。しかし、より大きな計算負荷が必要です。環境に基づいてこのパラメータを設定してください。 
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/tuning_map_update_interval.png)
 
 ### minimumScore 
-スキャンマッチの結果を考慮するための最小点数。当パラムはポーズ推定値をスキップすることを防止します。これが正しく設定されると、下記の情報を見ることができます。 
+センサーのscanデータ一致検査の成功および失敗を決定する最小点数値を設定します。広い空間でロボットの予想位置に生じる誤差を減少させることが可能です。適切に設定された場合、以下のような情報を見ることができます。 
 
 ```
 Average Scan Matching Score=278.965
@@ -325,25 +318,27 @@ op:-0.0306156 5.90277e-06 -3.14151
 ```
 
 ### linearUpdate
-ロボットが翻訳される度にスキャンプロセスが行われます。 
+ロボットがこの値よりも長い距離を並進運動したとき、scanプロセスを実行します。
  
 ### angularUpdate 
-ロボットが回転される度にスキャンプロセスが行われます。これをlinearUpdateより小さく設定することをおすすめします。 
+ロボットがこの値よりも大きい角度を回転運動したとき、scanプロセスを実行します。
+これをlinearUpdateより小さく設定することがいいです。 
 
-## マップの保存 
-[遠隔PC] すべての作業が終わりましたので、map _saverノードを実行してマップファイルを作ります。マップはロボットが動く時にロボットの走行距離、tf 情報、センサーのスキャン情報をベースに作成されます。当データーは以前動画のRVizで見ることができます。作成されたマップはmap_saverが実行されるディレクトリに保存されます。ファイル名を指定しないと、マップ情報が入っているmap.pgmおよびmap.yamlファイルに保存されます。 完成した地図は2つのファイルに分けて保存され、そのうち、pgmはPortable Gray Map形式の画像ファイルであり、yamlは地図の解像度など各種設定を保存するファイルです。
+## 地図を保存する
+[Remote PC]地図が完成したら、map_saverノードを実行して生成されたマップを保存する必要があります。ロボットが動く際に発生した走行距離とtf、scanデータなどによってRViz上で完成された地図は、以下のコマンドを使用してファイルに保存することができます。
+完成した地図は2つのファイルに分けて保存され、そのうち、pgmはPortable Gray Map形式の画像ファイルであり、yamlは地図の解像度など各種設定を保存するファイルです。
 
 ```bash
 $ rosrun map_server map_saver -f ~/map
 ```
 
-`-f` オプションは、マップファイルが保存されたフォルダーおよびファイル名が表示されます。~ / mapをオプションで使用すると、map.pgmとmap.yamlが使用者のホームフォルダー~ / ($HOME directory :  /home/\<username\>)のマップフォルダーに保存されます。 
+`-f`オプションは、地図ファイルを保存する場所とファイル名を指定します。上のコマンドでは、`～/map`オプションが使用されているため、ユーザーのhomeフォルダ(`～/`または`/home/\<username\>`)に `map.pgm`と`map.yaml`ファイルとして保存されます。
 
-## マップ 
-ROSコミュニティーで一般的に使用される２次元OGMを使用します。下記のイメージのように以前のSave Mapセクションで得たマップで、ホワイトはロボットが動ける空きゾーン、ブラックはロボットが動けないゾーン、グレーは不明なゾーンです。当マップは探索に使用されます。
+## 地図
+ROSにおいて地図は2次元Occupancy Grid map(OGM)を主に使用します。保存されたmap.pgmイメージファイルを開くと、以下のようにロボットが移動できる白い領域と、障害物として識別されロボットが移動できない黒い領域、ロボットが探索していない灰色の領域に区分されます。このように生成されたマップは、次に紹介するNavigationで使用することができます。
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/map.png)
 
-下記のイメージはタートルボット３を使って大きなマップを作成したその結果です。約３５０ｍの走行距離のマップ作成には約１時間かかりました。 
+下のイメージは、cartographerを利用して広い領域の地図を作成した例です。以下のようなマップの生成は、約1時間程度の間に計350mの距離をロボットを操縦して作成したものです。
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/large_map.png)

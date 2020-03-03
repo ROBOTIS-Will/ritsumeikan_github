@@ -168,12 +168,12 @@ $ source ~/.bashrc
 
 ## Bringup
 
-当内容はRemotePCで実行してください。roscoreはTurtlebotPCで実行しないでください。  
+当内容はRemote PCで実行してください。roscoreはTurtlebot PCで実行しないでください。  
 各装置のIPアドレスが正しく設定されているかを確認してください。
 バッテリーの電圧が１１Vより低いと、アラームが鳴り続け、作動装置が非活性化されます。アラームが鳴ると、バッテリーを充電しなければなりません。 
 
 ### roscoreの実行
-[RemotePC] roscoreを実行してください。 
+[Remote PC] roscoreを実行してください。 
 ```bash
 $ roscore
 ```
@@ -185,7 +185,7 @@ $ rostopic list
 ```
 
 ### Turtlebot3のBringup 
-[TurtlebotPC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
+[Turtlebot PC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
@@ -301,7 +301,7 @@ $ rqt_graph
 ![](/assets/images/ritsumeikan/009.png)
 
 ### RvizにTurtlebot3をLoad 
-[RemotePC]robot_state_publisherとRVizを実行してください。  
+[Remote PC]robot_state_publisherとRVizを実行してください。  
 当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportをパーマネント設定するためには、Export Turtlebot3_MODELページを参照してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
