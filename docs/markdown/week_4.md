@@ -8,7 +8,7 @@ sidebar:
   nav: "ritsumeikan4"
 ---
 
-# Extension
+# Machine Learning
 
 ## Machine Learning I : object_detector_3d
 
