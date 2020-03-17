@@ -9,7 +9,7 @@ sidebar:
 ---
 
 # [Class 6] TurtleBot3 Manipulatorを使用してSLAMを実行する
-OpenMANIPULATOR-Xが装着されたTurtleBot3のSLAMは、以前学習したSLAMと少々差異があります。
+OpenMANIPULATOR-Xを組み付けたTurtleBot3のSLAMは、以前学習したSLAMと少々差異があります。
 ロボットアームがLDSセンサーの一定部分を塞いでいるため、SLAMに使用されるLDSセンサーの範囲を制限することによってスムーズな地図作成が可能となります。
 以下の通り`scan_data_filter.yaml`ファイルにおいてLDSセンサーの設定された角度範囲データをフィルタリングすることによって、有効でない角度値を使用せずに地図を描くことができます。
 
@@ -26,13 +26,13 @@ scan_filter_chain:
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/manipulation/open_manipulator_slam.png)
 
 ## roscoreを実行する
-[Remote PC] ROS 1を駆動するためのroscoreをユーザーのPCで駆動させます。
+[Remote PC] roscoreをユーザのPCで動作させます。
 ```bash
 $ roscore
 ```
 
 ## Bringupを実行する
-[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサーを動作させるノードを実行します。
+[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサを動作させるノードを実行します。
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
@@ -45,11 +45,11 @@ $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 2. **turtlebot3_lidar.launch**
     - publish : scan
 
-OpenCRのファームウェアが変更されたため、turtlebot3_robot.launchファイルを実行すると、Week1で説明したturtlebot3_robot.launchを実行させたときにpublishされるトピックに加えて、joint_trajectory_point、gripper_positionのトピック2種をsubscribeします。joint_trajectory_pointはOpenMANIPULATORの各関節の位置値を伝達し、OpenCRを通じてOpenMANIPULATORを構成するDYNAMIXELアクチュエータに伝達されます。gripper_positionはOpenMANIPULATORグリッパーの位置値であり、joint_trajectory_pointと同様に、OpenCRを通じてグリッパーを構成するDYNAMIXELに伝達され、グリッパーを制御します。rqtのMessage Publisherを使用して位置値を転送する方法によっても簡単に制御することができます。
+OpenCRのファームウェアが変更されたため、turtlebot3_robot.launchファイルを実行すると、Week1で説明したturtlebot3_robot.launchを実行させたときにpublishされるトピックに加えて、joint_trajectory_point、gripper_positionのトピック2種をsubscribeします。joint_trajectory_pointはOpenMANIPULATORの各関節の位置値を伝達し、OpenCRを通じてOpenMANIPULATORを構成するDYNAMIXELアクチュエータに伝達されます。gripper_positionはOpenMANIPULATORグリッパの位置値であり、joint_trajectory_pointと同様に、OpenCRを通じてグリッパーを構成するDYNAMIXELに伝達され、グリッパを制御します。rqtのMessage Publisherを使用して位置値を転送する方法によっても簡単に制御することができます。
 {% endcapture %}
 <div class="notice--success">{{ capture01 | markdownify }}</div>
 
-SLAMを使用して地図を作成する場合はManipulationを使用していないため、以下のOpenMANIPULATORを制御するコントローラーとmove_groupインタフェースは実行する必要はありません。
+SLAMを使用して地図を作成する場合は、Manipulationを使用していないため、以下のOpenMANIPULATORを制御するコントローラーとmove_groupインタフェースは実行する必要はありません。
 
 ```bash
 $ roslaunch turtlebot3_manipulation_bringup turtlebot3_manipulation_bringup.launch
@@ -74,11 +74,11 @@ $ roslaunch turtlebot3_slam turtlebot3_manipulation_slam.launch
   - subscribe : joint_states 
   - publish : tf
 3. **laser_filterノード**
-  - LDSセンサーの有効ではない値の範囲をフィルタリングするノードを実行します。ここでは、OpenMANIPULATORが設置されている後方部の角度を無視します。
+  - LDSセンサの有効ではない値の範囲をフィルタリングするノードを実行します。ここでは、OpenMANIPULATORが設置されている後方部の角度を無視します。
 4. **turtlebot3_gmapping.launch**
   - Gmappingを利用したSLAMを実行するために必要なパラメータ情報がパラメータサーバにロードされます。この設定を利用してgmappingを設定します。
 5. **turtlebot3_gmapping.rviz**
-  - Gmappingを適用したSLAMをRViz画面に表示するために必要なRVizのデフォルト設定を適用し、RVizを実行します。
+  - Gmappingを適用したSLAMをRviz画面に表示するために必要なRvizのデフォルト設定を適用し、Rvizを実行します。
 
 turtlebot3_manipulation_slam.launchファイルを実行すると、ロボットのurdfを定義された位置から読み込みます。また、joint_statesとurdfを利用して、tfをpublishするrobot_state_publisherノードを生成します。  
 {% endcapture %}
@@ -96,23 +96,23 @@ $ rosrun map_server map_saver -f ~/map
 ```
 
 # Navigation
-OpenMANIPULATORを装着したTurtleBot3のNavigationは、基本TurtleBot3のプラットフォームで実行するNavigationと大きな差異はありません。ただし、SLAMと同様にLDSセンサーの範囲を指定しておくことが望ましく、Navigationの途中で必要な場合、OpenMANIPULATORを駆動するためにロボットアームとグリッパーを制御する関連ノードを実行することができます。
+OpenMANIPULATORを組み付けたTurtleBot3のNavigationは、基本TurtleBot3のプラットフォームで実行するNavigationと大きな差異はありません。ただし、SLAMと同様にLDSセンサの範囲を指定しておくことが望ましく、Navigationの途中で必要な場合、OpenMANIPULATORを駆動するためにロボットアームとグリッパーを制御する関連ノードを実行することができます。
 
 ## roscoreを実行する
-[Remote PC] ROS 1を駆動するためのroscoreをユーザーのPCで駆動させます。
+[Remote PC] roscoreをユーザーのPCで動作させます。
 ```bash
 $ roscore
 ```
 
 ## Bringupを実行する
-[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサーを動作させるノードを実行します。
+[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサを動作させるノードを実行します。
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 <div class="notice--success">{{ capture01 | markdownify }}</div>
 
 ## Navigationを実行する
-[Remote PC] 以下のコマンドを実行すると、Navigationの実行に必要な様々なパラメータと地図、GUI環境を作るためのURDFやRViz環境設定などを読み込みます。多くのノードが同時に実行される実行ファイルであるため、実行されるファイルとノードを最初に確認してから実行してください。
+[Remote PC] 以下のコマンドを実行すると、Navigationの実行に必要な様々なパラメータと地図、GUI環境を作るためのURDFやRviz環境設定などを読み込みます。多くのノードが同時に実行される実行ファイルであるため、実行されるファイルとノードを最初に確認してから実行してください。
 
 ```bash
 $ roslaunch turtlebot3_manipulation_navigation navigation.launch
@@ -124,11 +124,11 @@ $ roslaunch turtlebot3_manipulation_navigation navigation.launch
 2. **robot_state_publisher**
   - robot_state_publisherでは、ロボットの各関節の情報を受信し、得られた関節についての情報をurdfを参考にtfの形式でpublishします。
 3. **laser_filter**
-  - LDSセンサーの設定された角度範囲データをフィルタリングします。
+  - LDSセンサの設定された角度範囲データをフィルタリングします。
 4. **map_server**
   - SLAMによって完成した地図と設定ファイルを読み込みます。
 5. **amcl.launch**
-  - AMCLパーティクルフィルタを使用するための各種パラメータを読み込みます。地図とセンサーのscan値、ロボットのinitialposeとtfを読み取り、particle filterを使用して地図上でロボットの位置を予測します。
+  - AMCLパーティクルフィルタを使用するための各種パラメータを読み込みます。地図とセンサのscan値、ロボットのinitialposeとtfを読み取り、particle filterを使用して地図上でロボットの位置を予測します。
 6. **move_base.launch**
   - move_baseパッケージのmove_baseノードは、ロボットのNavigation stackにアクセスするROSインターフェイスを提供します。move_baseノードは、global plannerとlocal plannerを接続してロボットを目的地まで移動させ、この時それぞれのplannerに合ったcostmapも保管します。ロボットの目的地(goal)をAction形態のトピックで受信すると、現在地(feedback)と状態(status)、移動の結果(result)をアップデートするため、同様にAction形態のトピックを使用します。また、現在の状態に合わせてロボットを動かすためのcmd_velトピックが持続的にpublishされます。
 7. **rviz**
@@ -172,12 +172,12 @@ $ roslaunch turtlebot3_manipulation_moveit_config move_group.launch
 {% capture capture03 %}
 **roslaunch turtlebot3_manipulation_moveit_config move_group.launch**
 
-move_group.launchを実行すると、move_groupノードが実行されます。 move_groupノードは、ユーザーインタフェースを介してコマンドを受けとり、ロボットコントローラーにaction形式で伝達します。
+move_group.launchを実行すると、move_groupノードが実行されます。 move_groupノードは、ユーザーインタフェースを介してコマンドを受けとり、ロボットコントローラにaction形式で伝達します。
 {% endcapture %}
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
 ### ROBOTIS GUI GUIコントローラーを実行
-[Remote PC] ロボティーズGUIは、OpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置（グリッパー間の赤い六面体）をレファレンスとするTask Space Controlや各ジョイント関節の角度をレファレンスとするJoint Space Controlをサポートします。
+[Remote PC] ROBOTIS GUIは、OpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置（グリッパー間の赤い六面体）をリファレンスとするTask Space Controlや各ジョイント関節の角度をレファレンスとするJoint Space Controlをサポートします。
 必要に応じて使いやすい制御方法を使用することができます。
 
 ```bash

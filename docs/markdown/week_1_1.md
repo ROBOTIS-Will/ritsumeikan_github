@@ -101,7 +101,7 @@ $ sudo apt-get install python-rosinstall python-rosinstall-generator python-wsto
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/software/network_configuration.png)
 
-TurtleBot3の場合、ROS MasterがリモートPCで駆動します。  
+TurtleBot3の場合、ROS MasterがRemote PCで駆動します。  
 ROS基盤のTurtleBot3とRemote PCが互いに通信を行うためには、IPアドレスが設定されている必要があります。  
 このとき、Remote PCとTurtleBot3のPC（またはSBC）は同じルータに接続され、同じワイヤレスネットワークに接続される必要があります。
 
@@ -127,7 +127,7 @@ $ nano ~/.bashrc
 
 `CTRL` + `X`ショートカットで修正を終了すると、保存するかどうかを確認する画面が出ます。  
 `Y`と`Enter`を順番に押し、同一のファイルに上書きして終了します。  
-次に、以下のコマンドを使用してbashrcにを調達。
+次に、以下のコマンドを使用してbashrcに反映します。
 
 ```bash
 $ source ~/.bashrc
@@ -154,7 +154,7 @@ $ nano ~/.bashrc
 以下のように、Remote PCのIPアドレスをROS_MASTER_URIとROS_HOSTNAME項目に入力します。
 
 ROS_MASTER_URIのアドレスをlocalhostからRemote PCのアドレスに修正してください｡
-その後、ROS_HOSTNAMEのlocalhostをTurtleBot SBCのIPアドレスに修正してください｡
+その後、ROS_HOSTNAMEのlocalhostをTurtleBot3 SBCのIPアドレスに修正してください｡
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/software/network_configuration5.png)
 
@@ -168,9 +168,9 @@ $ source ~/.bashrc
 
 ## Bringup
 
-当内容はRemote PCで実行してください。roscoreはTurtlebot PCで実行しないでください。  
-各装置のIPアドレスが正しく設定されているかを確認してください。
-バッテリーの電圧が１１Vより低いと、アラームが鳴り続け、作動装置が非活性化されます。アラームが鳴ると、バッテリーを充電しなければなりません。 
+当内容はRemote PCで実行してください。roscoreはTurtlebot3 PCで実行しないでください。  
+各装置(Turtlebot3 PC, Remote PC)のIPアドレスが正しく設定されているかを確認してください。
+バッテリーの電圧が１１Vより低いと、アラームが鳴り続け、作動装置が非活性化されます。アラームが鳴った場合、バッテリーを充電しなければなりません。 
 
 ### roscoreの実行
 [Remote PC] roscoreを実行してください。 
@@ -185,12 +185,12 @@ $ rostopic list
 ```
 
 ### Turtlebot3のBringup 
-[Turtlebot PC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
+[Turtlebot3 PC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
-Turtlebot3のバーガーモデルの場合、ターミナルに以下のメッセージが表示されます。 
+Turtlebot3のモデルがBurgerの場合、ターミナルに以下のメッセージが表示されます。 
 
 ```
 SUMMARY
@@ -302,7 +302,7 @@ $ rqt_graph
 
 ### RvizにTurtlebot3をLoad 
 [Remote PC]robot_state_publisherとRVizを実行してください。  
-当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportをパーマネント設定するためには、Export Turtlebot3_MODELページを参照してください。 
+当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportの設定を永続化するためには、Export Turtlebot3_MODELのページを参照してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_bringup turtlebot3_remote.launch
@@ -329,7 +329,7 @@ $ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz
 ```
 
 {% capture capture05 %}
-**rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz**
+**rosrun rviz rviz -d \`rospack find turtlebot3_description\`/rviz/model.rviz**
 - subscribe : tf, scan
 
 rvizを実行すると、tfとscanデータをそれぞれロボットの姿勢と周辺の障害物の情報として視覚化します。
@@ -340,9 +340,10 @@ rvizを実行すると、tfとscanデータをそれぞれロボットの姿勢�
 
 
 ## Keyboard Teleoperation
-TurtleBot3は、様々なデバイスで遠隔操作することができます。（LEAPモーション以外）ここで示した本実施例は、ダイナミクセルを制御ラズベリーパイ3及びOpenCRとUbuntuのメイト16.04にROSによって起動可能なPS3、XBOX 360、ROBOTIS RC100等のようないくつかの無線デバイスでテストされます。
+TurtleBot3は、様々なデバイスで遠隔操作することができます。（Leap Motionは対象外）ここで示した実施例は、DYNAMIXEL,Raspberry pi3,OpenCR1.0,Ubuntu Mate16.04(ROS Kinetic)の構成で起動可能なPS3、XBOX 360、ROBOTIS RC100等の無線デバイスでテストされています。
 
-### [リモートPC]を起動しturtlebot3_teleop_key、簡単な遠隔操作のテストのためのノード。
+### シンプルな遠隔操作のノード
+Remote PCでturtlebot3_teleop_keyを起動します。
 ```bash
 $ export TURTLEBOT3_MODEL=%{TB3_MODEL}
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
@@ -353,8 +354,8 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 - publish : cmd_vel
 
 turtlebot3_teleop_key.launchファイルを実行して生成されたturtlebot3_teleop_keyboardノードでは、キーボードの入力を読み取ってlinearとangular値を更新し、linearとangularが含まれたtwist形式のtopicであるcmd_velをpublishします。  
-その後、Turtlebot3のSBCで実行されたturtlebot3_robot.launchに含まれたturtlebot3_core.launchからcmd_velを受信します。  
-cmd_velトピックはrosserialを介してOpenCRに伝達され、OpenCRにアップロードされたファームウェアでDYNAMIXELを制御するためのコマンドとして出力されます。  
+その後、Turtlebot3のSBCで実行されたturtlebot3_robot.launchに含まれたturtlebot3_core.launchでcmd_velを受信します。  
+cmd_velトピックは、rosserialを介してOpenCRに伝達され、OpenCRにアップロードされたファームウェアでDYNAMIXELを制御するためのコマンドとして出力されます。  
 受信されたコマンドに従って車輪と接続されたDYNAMIXELが駆動し、ロボットを動かします。
 {% endcapture %}
 <div class="notice--success">{{ capture06 | markdownify }}</div>
@@ -367,7 +368,7 @@ Control Your Turtlebot3!
 ---------------------------
 Moving around:
         w
-    a    s    d
+    a   s   d
         x
 
 w/x : increase/decrease linear velocity
@@ -376,4 +377,7 @@ space key, s : force stop
 
 CTRL-C to quit
 ```
-
+{% capture note01 %}
+**注記** : Keyboard Teleoperationのturtlebot3_teleop_key.launchの説明にて、linearとangularが出てきますが、linearとangularがそれぞれ並進速度[m/s]と角速度[rad/s]であることを書いた方が親切だと思います。（ターミナルウィンドウを見れば、速度であることはわかりますが、念のため）
+{% endcapture %}
+<div class="notice--danger">{{ note01 | markdownify }}</div>

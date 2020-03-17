@@ -10,11 +10,11 @@ sidebar:
 
 # [Class 5] Manipulation
 
-OpenMANIPULATOR-Xは、ROSをサポートするROBOTISのオープンソースロボットアームです。ダイナミックセルと3Dプリンタを利用して製作された部品で、組み立てが可能なため作りやすく、価格が手頃だという利点があります。  
-特にOpenMANIPULATOR-Xは、TurtleBot3 WaffleやWaffle Piバージョンとの互換性を持つよう設計されており、ここではTurtleBot3 Waffle Piに組み立てられたマニピュレータを使う方法について説明します。
+OpenMANIPULATOR-Xは、ROSをサポートするROBOTISのオープンソースロボットアームです。DYNAMIXELと3Dプリンタを利用して製作された部品で、組み立てが可能なため作りやすく、価格が手頃だという利点があります。  
+特にOpenMANIPULATOR-Xは、TurtleBot3 WaffleやWaffle Piとの互換性を持つよう設計されており、ここではTurtleBot3 Waffle Piに組み付けられたマニピュレータを使う方法について説明します。
 
 ## Softwareを設定
-[Remote PC] TurtleBot3に組み立てられたOpenMANIPULATOR-Xを使用するためのパッケージをダウンロードし、ビルドします。
+[Remote PC] TurtleBot3に組み付けられたOpenMANIPULATOR-Xを使用するためのパッケージをダウンロードし、ビルドします。
 
 ```bash
 $ cd ~/catkin_ws/src/
@@ -24,8 +24,8 @@ $ cd ~/catkin_ws && catkin_make
 ```
 
 ## Hardwareを設定
-TurtleBot3 Waffle PiのLDSセンサーは、ロボットの中央部分に位置しています。  
-OpenMANIPULATOR-Xを取り付けるためには、LDSセンサーの位置を下の図の赤いボックスに向かって移動させ、黄色いボックスにOpenMANIPULATOR-Xの第1関節を取り付ける必要があります。  
+TurtleBot3 Waffle PiのLDSセンサは、ロボットの中央部分に位置しています。  
+OpenMANIPULATOR-Xを取り付けるためには、LDSセンサの位置を下の図の赤いボックスに向かって移動させ、黄色いボックスにOpenMANIPULATOR-Xの第1関節を取り付ける必要があります。  
 正確な位置に取り付けなかった場合、ロボットの構成を説明するURDFに定義されたセンサーとロボットアームの位置が実際のロボットの位置と異なり、意図しない動作が実行されたり、ロボットアームが意図しない場所に移動して衝突が起こる場合があります。
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/manipulation/assemble_points.png)
@@ -54,7 +54,7 @@ $ wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS1
 ## TurtleBot3 Bringup
 
 ### roscoreを実行する
-[Remote PC] ROS 1を駆動するためのroscoreをユーザーのPCで駆動させます。
+[Remote PC] ROSを駆動するためのroscoreをユーザーのPCで動作させます。
 ```bash
 $ roscore
 ```
@@ -66,7 +66,7 @@ $ export TURTLEBOT3_MODEL=waffle_pi
 ```
 
 ### Bringupを実行する
-[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサーを動作させるノードを実行します。
+[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサを動作させるノードを実行します。
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
@@ -93,7 +93,7 @@ $ roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation.launch
 {% capture capture02 %}
 **roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation.launch**
 
-Gazebo上にOpenMANIPULATORが結合されたTurtleBot3 Waffle Piモデルがロードされ、ロボットと通信する2つのロボットコントローラーであるarm_controller、gripper_controllerが実行されます。これらはそれぞれ、ロボットアームの関節とグリッパーを制御するコントローラーです。
+Gazebo上にOpenMANIPULATORが結合されたTurtleBot3 Waffle Piモデルがロードされ、ロボットと通信する2つのロボットコントローラであるarm_controller、gripper_controllerが実行されます。これらはそれぞれ、ロボットアームの関節とグリッパーを制御するコントローラーです。
 方式は、実際のロボットを使用する場合と同じです。以下のコードを実行し、move_groupと通信してロボットを制御します。
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
@@ -116,8 +116,8 @@ move_group.launchを実行すると、move_groupノードが実行されます�
 
 ![](/assets/images/ritsumeikan/tb3_omx_move_controller.png)
 
-## RVizを実行
-[Remote PC] MoveIt環境が設定された`moveit.rviz`ファイルを読み込み、RVizでMoveItを使用可能にします。
+## Rvizを実行
+[Remote PC] MoveIt環境が設定された`moveit.rviz`ファイルを読み込み、RvizでMoveItを使用可能にします。
 GUIでInteractive Markerを活用したロボットアームを制御でき、目標位置への動作をシミュレートすることができるため、衝突などに備えることが可能です。
 
 ```bash
@@ -126,14 +126,14 @@ $ roslaunch turtlebot3_manipulation_moveit_config moveit_rviz.launch
 {% capture capture04 %}
 **roslaunch turtlebot3_manipulation_moveit_config moveit_rviz.launch**
 
-MoveItが有効になったRVizが実行されます。Motion Planning pluginが実行され、それまでにmoveit_setup_assistantを介して既に保存されているモーションやinteractive markerを介して設定したモーションを、move_groupに伝達することができます。目標位置を設定した後、Plan and Executeボタンを押すと、ロボットが動きはじめます。
+MoveItが有効になったRvizが実行されます。Motion Planning pluginが実行され、それまでにmoveit_setup_assistantを介して既に保存されているモーションやinteractive markerを介して設定したモーションを、move_groupに伝達することができます。目標位置を設定した後、Plan and Executeボタンを押すと、ロボットが動きはじめます。
 {% endcapture %}
 <div class="notice--success">{{ capture04 | markdownify }}</div>
 
 ![](/assets/images/ritsumeikan/tb3_omx_rviz.png)
 
 ## ROBOTIS GUIコントローラーを実行
-[Remote PC] RVizを使用せずにGazeboと接続し、ロボットアームを制御する場合は、ロボティズGUIはOpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置(グリッパー間の赤い六面体)をレファレンスとするTask Space Controlや各ジョイント関節の角度を基準とするJoint Space Controlをサポートします。
+[Remote PC] Rvizを使用せずにGazeboと接続し、ロボットアームを制御する場合は、ロボティズGUIはOpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置(グリッパー間の赤い六面体)をリファレンスとするTask Space Controlや各ジョイント関節の角度を基準とするJoint Space Controlをサポートします。
 必要に応じて便利な制御方法を使用できます。
 
 ```bash
@@ -142,7 +142,7 @@ $ roslaunch turtlebot3_manipulation_gui turtlebot3_manipulation_gui.launch
 {% capture capture05 %}
 **roslaunch turtlebot3_manipulation_gui turtlebot3_manipulation_gui.launch**
 
-ユーザーインターフェースでC++ move_group_interfaceを使用したqt guiが実行されます。インタフェースを介して受けとった現在のジョイント位置およびend-effector位置がgui上に表示されます。Sendボタンをクリックすると、設定された位置値についてインターフェースを介してmove_groupに伝え、コントローラーに伝達し、ロボットを動かします。
+ユーザーインターフェースでC++ move_group_interfaceを使用したqt guiが実行されます。インタフェースを介して受けとった現在のジョイント位置およびend-effector位置がgui上に表示されます。Sendボタンをクリックすると、設定された位置値についてインターフェースを介してmove_groupに伝え、コントローラーに伝達しロボットを動かします。
 {% endcapture %}
 <div class="notice--success">{{ capture05 | markdownify }}</div>
 
@@ -150,23 +150,23 @@ $ roslaunch turtlebot3_manipulation_gui turtlebot3_manipulation_gui.launch
 
 # 実際のOpenMANIPULATORを制御する
 
-MoveItのmove_groupというノードは、以下のように様々な情報をもとに演算された軌跡を、ROS 1がサポートするaction形式でロボットコントローラーに提供する積分器(intergrator)としての役割を果たします。ユーザーは、move_groupノードにmoveitが提供する3種のインターフェース(C++、Python、RViz GUI)を通じてアクセスすることができます。ユーザーインターフェースを介してコマンドを受け取ると、move_groupノードはmoveit config情報(ジョイント角度の制限、機構学解析、衝突感知)およびロボットの状態情報に基づいて軌跡を生成し、ロボットコントローラーに提供します。
+MoveItのmove_groupというノードは、以下のように様々な情報をもとに計算された軌跡を、ROSがサポートするaction形式でロボットコントローラーに提供する統合装置(intergrator)としての役割を果たします。ユーザーは、move_groupノードにmoveitが提供する3種のインターフェース(C++、Python、RViz GUI)を通じてアクセスすることができます。ユーザーインターフェースを介してコマンドを受け取ると、move_groupノードはmoveit config情報(ジョイント角度の制限、機構学解析、衝突感知)およびロボットの状態情報に基づいて軌跡を生成し、ロボットコントローラーに提供します。
 
 ![](/assets/images/ritsumeikan/move_group.png)
 
 ## roscoreを実行する
-[Remote PC] ROS 1を駆動するためのroscoreをユーザーのPCで駆動させます。
+[Remote PC] roscoreをユーザーのPCで動作させます。
 ```bash
 $ roscore
 ```
 
 ## Bringupを実行する
-[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサーを動作させるノードを実行します。
+[TurtleBot3 SBC] 以下のコマンドによって、rosserialとLDSセンサを動作させるノードを実行します。
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
-[Remote PC] 基本的なTurtleBot3のプラットフォームとは異なり、OpenMANIPULATORを制御できるサービスサーバーが必要であるため、このBringupでは、以前の講義でPC実行していたturtlebot3_remote.launchを終了し、以下のようにManipulationに特化したlaunchファイルを実行します。
+[Remote PC] 基本的なTurtleBot3のプラットフォームとは異なり、OpenMANIPULATORを制御できるサービスサーバが必要であるため、このBringupでは、以前の講義でPC実行していたturtlebot3_remote.launchを終了し、以下のようにManipulationに特化したlaunchファイルを実行します。
 
 ```bash
 $ roslaunch turtlebot3_manipulation_bringup turtlebot3_manipulation_bringup.launch

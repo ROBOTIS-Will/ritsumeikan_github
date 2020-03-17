@@ -8,26 +8,26 @@ sidebar:
   nav: "ritsumeikan2-1"
 ---
 
-# [Class 3] LRF(LDS)センサー
+# [Class 3] LRF(LDS)センサ
 
-TurtleBot3に使われているLDS(LASER Distance Sensor)は、2次元平面の360度距離値を読み取ることができるセンサーで、SLAMとNavigationに必要な重要情報を提供します。
-LDSセンサーはUSBインターフェースであるUSB2LDSボードを通じ、Raspberry PiとUSBケーブルを介して接続されますが、UARTインタフェースを介してOpenCRとも直接接続することができます。
+TurtleBot3に使われているLDS(LASER Distance Sensor)は、2次元平面の360度距離値を読み取ることができるセンサで、SLAMとNavigationに必要な重要情報を提供します。
+LDSセンサはUSBインターフェースであるUSB2LDSボードを通じ、Raspberry Pi3とUSBケーブルを介して接続されますが、UARTインタフェースを介してOpenCRとも直接接続することができます。
 
-センサーの特性上、直射日光が強く当たる屋外環境では使用が困難で、10,000lux以下の明るさの屋内空間で走行するロボットに適しています。
+センサの特性上、直射日光が強く当たる屋外環境では使用が困難で、10,000lux以下の明るさの屋内空間で走行するロボットに適しています。
 
-TurtleBot3のLDSセンサーは、パッケージの形でインストールするか、ソースコードをダウンロードしてビルドすることができます。
+TurtleBot3のLDSセンサは、パッケージの形でインストールするか、ソースコードをダウンロードしてビルドすることができます。
 
-## センサーパッケージをインストール
+## センサパッケージをインストール
 ```bash
 $ sudo apt-get install ros-kinetic-hls-lfcd-lds-driver
 ```
-TurtleBot3のLDSセンサーを駆動するのに必要なドライバパッケージをインストールします。
+TurtleBot3のLDSセンサを駆動するのに必要なドライバパッケージをインストールします。
 
-### センサーの接続ポート権限を設定
+### センサの接続ポート権限を設定
 ```bash
 $ sudo chmod a+rw /dev/ttyUSB0
 ```
-センサーを、USBを用いてLinuxがインストールされたPCと接続する場合は、USBポートの権限を正しく設定することで、割り当てられたポートにアクセスすることができます。  
+LinuxがインストールされたPCと接続する場合は、USBポートの権限を正しく設定することで、割り当てられたポートにアクセスすることができます。  
 上のコマンドは、USB0番ポートに読み出し/書き込みアクセス権を設定します。
 
 ### hlds_laser_publisherノードを実行
@@ -39,7 +39,7 @@ $ roslaunch hls_lfcd_lds_driver hlds_laser.launch
 1. hlds_laser_publisher
     - publish : scan, rpms
 
-hlds_laser.launchを実行するとhlds_laser_publisherノードが生成され、センサーのデータと回転速度をそれぞれscanとrpmsのtopicでpublishします。 sensor_msgsタイプのLaserScanメッセージであるscanにはLDSセンサーが回転し、獲得したロボット周辺の物体との距離データが配列の形で蓄積、保存されます。
+hlds_laser.launchを実行するとhlds_laser_publisherノードが生成され、センサのデータと回転速度をそれぞれscanとrpmsのtopicでpublishします。 sensor_msgsタイプのLaserScanメッセージであるscanにはLDSセンサが回転し、獲得したロボット周辺の物体との距離データが配列の形で蓄積、保存されます。
 {% endcapture %}
 <div class="notice--success">{{ capture00 | markdownify }}</div>
 
@@ -57,12 +57,12 @@ $ roslaunch hls_lfcd_lds_driver view_hlds_laser.launch
     - subscribe : scan
 
 view_hlds_laser.launchを実行すると、hlds_laser.launchファイルとrvizノードが実行されます。  
-hlds_laser.launchを実行するとhlds_laser_publisherノードが生成され、センサーのデータと回転速度をそれぞれscanとrpmsのtopicでpublishします。 sensor_msgsタイプのLaserScanメッセージであるscanにはLDSセンサーが回転し、獲得したロボット周辺の物体との距離データが配列の形で蓄積、保存されます。  
+hlds_laser.launchを実行するとhlds_laser_publisherノードが生成され、センサのデータと回転速度をそれぞれscanとrpmsのtopicでpublishします。 sensor_msgsタイプのLaserScanメッセージであるscanにはLDSセンサが回転し、獲得したロボット周辺の物体との距離データが配列の形で蓄積、保存されます。  
 RVizノードでは、rvizの設定ファイルを読み込み、画面に表示してscanデータをsubscribeし、3次元グラフィックスで視覚化します。
 {% endcapture %}
 <div class="notice--success">{{ capture01 | markdownify }}</div>
 
-## センサーのソースコードをダウンロード
+## センサのソースコードをダウンロード
 
 ダウンロードされたLDS-01をサポートするドライバは、Windows、Linux、MacOSの開発環境で実行することができます。  
 ソフトウェア条件は以下の通りです。
@@ -91,7 +91,7 @@ $ make
 ```
 
 ### CLI環境で実行
-ソースコードが正しくビルドされると、以下のように `./lds_driver`ファイルを実行してLDSセンサー値を確認することができます。
+ソースコードが正しくビルドされると、以下のように `./lds_driver`ファイルを実行してLDSセンサ値を確認することができます。
 
 ```bash
 $ ./lds_driver
@@ -101,7 +101,7 @@ r[359]=0.438000,r[358]=0.385000,r[357]=0.379000,...
 ```
 
 ### GUI環境で実行
-LDSセンサーの値を視覚的に確認するためには、Qt CreatorとQt Libsを追加でインストールする必要があります。
+LDSセンサの値を視覚的に確認するためには、Qt CreatorとQt Libsを追加でインストールする必要があります。
 - Qt Creator(v4.5.0でテスト済み)
 - Qt Libs(v5.10.0でテスト済み)
 
@@ -111,7 +111,7 @@ LDSセンサーの値を視覚的に確認するためには、Qt CreatorとQt L
 2. Qt Creatorを実行します。
 3. ソースコードから、以下の位置にある`lds_polar_graph.pro`ファイルを開きます。  
   (hls_lfcd_lds_driver/applications/lds_polar_graph/lds_polar_graph.pro)
-4. ソースコードでセンサーと接続されたポートを確認し、他のポートに割り当てられている場合、該当するポート番号に変更します。
+4. ソースコードでセンサと接続されたポートを確認し、他のポートに割り当てられている場合、該当するポート番号に変更します。
 5. `CTRL` + `SHIFT` + `B`を押して、ソースコードをビルドします。
 6. ビルドが正常に完了すると、`CTRL` + `R`を押してプログラムを実行します。
 
@@ -119,34 +119,34 @@ LDSセンサーの値を視覚的に確認するためには、Qt CreatorとQt L
 
 ### Embeddedボードで実行
 
-LDS-01センサーは、OpenCRまたはArduinoボードで動作させることが可能です。
-この場合、センサーデータの視覚化のため、LCDパネルが必要です。
+LDS-01センサは、OpenCRまたはArduinoボードで動作させることが可能です。
+この場合、センサデータの視覚化のため、LCDパネルが必要です。
 
-LDS-01センサーのTX、RXケーブルはembeddedボードのUARTピンと互換性があり、embeddedボードに電源とTX、RXピンを接続して使用することができます。  
+LDS-01センサのTX、RXケーブルはembeddedボードのUARTピンと互換性があり、embeddedボードに電源とTX、RXピンを接続して使用することができます。  
 実際のケーブルの色は下の図と異なる場合があるため、必ず製品のデータシートを参照してください。
 
 ![](/assets/images/ritsumeikan/lds_lines.png)
 
-#### OpenCRからLDSセンサーを読み込む
-OpenCRボードからセンサーの値を読み取るには、Arduino例題をOpenCRボードにアップロードする必要があります。
+#### OpenCRからLDSセンサを読み込む
+OpenCRボードからセンサの値を読み取るには、Arduinoの例題をOpenCRボードにアップロードする必要があります。
 
 1. Arduino IDEのTools > Board > Boards ManagerでOpenCRを検索し、ライブラリをインストールします。
 2. Tools > BoardからOpenCRを選択します。
 3. Tools > PortでOpenCRが接続されたポートを選択します。
 4. File > Examples > OpenCR > Etc > LDS > drawLDS例題を選択してOpenCRにアップロードします。
 
-例題のアップロードが完了すると、OpenCRと接続されたLCDに、以下の画像のようにセンサーの値が視覚的に確認できるようになります。
+例題のアップロードが完了すると、OpenCRと接続されたLCDに、以下の画像のようにセンサの値が視覚的に確認できるようになります。
 
 ![](/assets/images/ritsumeikan/011.png)
 
 # SLAM
 
-SLAM(Simultaneous Localization and Mapping)とは、未知の領域を探索し、ロボットに取り付けられたセンサーを通じて取得された情報を使用して、ロボットが自己位置推定及び探索する位置の地図を作成することを意味します。SLAMは、Navigationや無人自動車の自律走行に欠かせない重要な技術です。外部情報を取得するために使用されるセンサーには、距離を測定することができるセンサーや周辺の画像を取得できるセンサーがあります。赤外線距離センサー(IR)、音波センサー(SONAR)、レーザーセンサー(LRF)などがよく使用されており、最近では映像を解析するアルゴリズムの発展によって、カメラが数多く使用されてもいます。  
+SLAM(Simultaneous Localization and Mapping)とは、未知の領域を探索し、ロボットに取り付けられたセンサを通じて取得された情報を使用して、ロボットが自己位置推定及び環境地図の作成を同時に行うことを意味します。SLAMは、Navigationや無人自動車の自律走行に欠かせない重要な技術です。外部情報を取得するために使用されるセンサには、距離を測定することができるセンサや周辺の画像を取得できるセンサがあります。赤外線距離センサ(IR)、音波センサ(SONAR)、レーザーセンサ(LRF)などがよく使用されており、最近では映像を解析するアルゴリズムの発展によって、カメラが数多く使用されてもいます。  
 ロボットの位置を予測するため、ロボットの車輪と接続されたエンコーダの値を読み取り、推測航法(Dead Reckoning)を使用して走行距離(odometry)を計算することになりますが、この時、車輪と地面の間の摩擦などによって誤差が生じます。実際のロボットの位置と予測されたロボットの位置の誤差を減らすために、慣性測定センサ(IMU)から得られたデータを利用して位置補正を行うことができます。  
-また、距離センサー値を用いて位置の誤差を低減するために使用される方法として、Kalman filter、Markov Localization、Monte Carlo Localizationなどがあります。
+また、距離センサ値を用いて位置の誤差を低減するために使用される方法として、Kalman filter、Markov Localization、Monte Carlo Localizationなどがあります。
 
 SLAMでマップを作成する際、いくつかの注意点があります。  
-広い倉庫やホールのようにセンサーの範囲で届かない広い領域の地図を作成する場合、地図が正しく描画されません。これは、センサーの範囲を両腕の長さであると仮定したとき、ホールの中心で目を閉じて両腕を使って現在地を探ろうとすることと同じです。  
+広い倉庫やホールのようにセンサの範囲で届かない広い領域の地図を作成する場合、地図が正しく描画されません。これは、センサの範囲を両腕の長さであると仮定したとき、ホールの中心で目を閉じて両腕を使って現在地を探ろうとすることと同じです。  
 これと類似して、特徴点のない長い廊下も地図の描画が困難です。特徴のない両壁面からなる長い廊下で目を閉じ、壁を手でつたって歩くと、廊下のどの位置まで来たのか把握しづらいことと同様です。
 
 このような場合、マッピングアルゴリズムが特徴点として参照できるよう、地図上のあちこちに物体や障害物を設置する方法を検討できます。このような特徴点は、一定のパターンや対称の形で置くよりも、パターンがない形で置くことが最もよいでしょう。
@@ -191,7 +191,7 @@ SLAMでマップを作成する際、いくつかの注意点があります。
 3. **rviz**
   - subscribe : tf, scan, map
 
-    最後にrvizの設定ファイルを適用したrvizが実行され、tf、scan、mapデータをsubscribeしてロボットとセンサー値、gmappingによって生成されたマップを視覚化します。  
+    最後にrvizの設定ファイルを適用したrvizが実行され、tf、scan、mapデータをsubscribeしてロボットとセンサ値、gmappingによって生成されたマップを視覚化します。  
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
 
@@ -226,7 +226,7 @@ $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=cartographer
 3. rviz
   - subscribe : tf, scan, map
 
-    最後にrvizの設定ファイルを適用したrvizが実行され、tf、scan、mapデータをsubscribeしてロボットとセンサー値、gmappingによって生成されたマップを視覚化します。
+    最後にrvizの設定ファイルを適用したrvizが実行され、tf、scan、mapデータをsubscribeしてロボットとセンサ値、gmappingによって生成されたマップを視覚化します。
 {% endcapture %}
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
@@ -292,7 +292,7 @@ Gmappingは、さまざまな環境に最適化されたパフォーマンスを
 以下のパラメータは、`turtlebot3_slam/launch/turtlebot3_gmapping.launch`ファイルに定義されており、ファイルを実行する際にroscoreのパラメータサーバーにロードされ、gmappingをベースにしたSLAMに適用されます。
 
 ### maxUrange
-このパラメータはLDSセンサーの最大使用可能範囲を設定します。 
+このパラメータはLDSセンサの最大使用可能範囲を設定します。 
  
 ### map_update_interval 
 マップをアップデートする期間(秒単位)この値が低いと、マップがもっと頻繁にアップデートされます。しかし、より大きな計算負荷が必要です。環境に基づいてこのパラメータを設定してください。 
@@ -300,7 +300,7 @@ Gmappingは、さまざまな環境に最適化されたパフォーマンスを
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/tuning_map_update_interval.png)
 
 ### minimumScore 
-センサーのscanデータ一致検査の成功および失敗を決定する最小点数値を設定します。広い空間でロボットの予想位置に生じる誤差を減少させることが可能です。適切に設定された場合、以下のような情報を見ることができます。 
+センサのscanデータ一致検査の成功および失敗を決定する最小点数値を設定します。広い空間でロボットの予想位置に生じる誤差を減少させることが可能です。適切に設定された場合、以下のような情報を見ることができます。 
 
 ```
 Average Scan Matching Score=278.965
@@ -342,3 +342,10 @@ ROSにおいて地図は2次元Occupancy Grid map(OGM)を主に使用します�
 下のイメージは、cartographerを利用して広い領域の地図を作成した例です。以下のようなマップの生成は、約1時間程度の間に計350mの距離をロボットを操縦して作成したものです。
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/large_map.png)
+
+{% capture note01 %}
+**注記**
+- 同じく2.SLAMの説明後半部にて、GmappingとCatographerの地図作成方法の違いについて述べていますが、ループ閉じ込み（Loop Closure）が明示的であるかどうかの違い（これによりCartographerの累積誤差が少ないことなど）を追記すると学生さんには良いと思います。（cartographerの大きな特徴であるため）    
+- 最後に 2.4.地図を保存する についてですが、別環境の地図（複数の地図）を保存したい場合には、地図を保存するためのコマンド末尾の~/mapを保存したいファイル名に変更して実行するように書いた方が良いと思います。コマンド通りに打ち込んでしまうと常に地図を上書き保存してしまい、前の地図が消えてしまうというようなトラブルに陥ってしまいます。（それで困っている人が何人かいました）
+{% endcapture %}
+<div class="notice--danger">{{ note01 | markdownify }}</div>
