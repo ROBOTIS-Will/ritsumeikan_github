@@ -329,10 +329,10 @@ op:-0.0306156 5.90277e-06 -3.14151
 完成した地図は2つのファイルに分けて保存され、そのうち、pgmはPortable Gray Map形式の画像ファイルであり、yamlは地図の解像度など各種設定を保存するファイルです。
 
 ```bash
-$ rosrun map_server map_saver -f ~/map
+$ rosrun map_server map_saver -f ~/${map_name}
 ```
 
-`-f`オプションは、地図ファイルを保存する場所とファイル名を指定します。上のコマンドでは、`～/map`オプションが使用されているため、ユーザーのhomeフォルダ(`～/`または`/home/\<username\>`)に `map.pgm`と`map.yaml`ファイルとして保存されます。
+`-f`オプションは、地図ファイルを保存する場所とファイル名を指定します。上のコマンドでは、`～/${map_name}`オプションが使用されているため、ユーザーのhomeフォルダ(`～/`または`/home/\<username\>`)に `${map_name}.pgm`と`${map_name}.yaml`ファイルとして保存されます。${map_name}に保存したいファイル名を入力してください。
 
 ## 地図
 ROSにおいて地図は2次元Occupancy Grid map(OGM)を主に使用します。保存されたmap.pgmイメージファイルを開くと、以下のようにロボットが移動できる白い領域と、障害物として識別されロボットが移動できない黒い領域、ロボットが探索していない灰色の領域に区分されます。このように生成されたマップは、次に紹介するNavigationで使用することができます。
@@ -343,9 +343,5 @@ ROSにおいて地図は2次元Occupancy Grid map(OGM)を主に使用します�
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/large_map.png)
 
-{% capture note01 %}
-**注記**
-- 同じく2.SLAMの説明後半部にて、GmappingとCatographerの地図作成方法の違いについて述べていますが、ループ閉じ込み（Loop Closure）が明示的であるかどうかの違い（これによりCartographerの累積誤差が少ないことなど）を追記すると学生さんには良いと思います。（cartographerの大きな特徴であるため）    
-- 最後に 2.4.地図を保存する についてですが、別環境の地図（複数の地図）を保存したい場合には、地図を保存するためのコマンド末尾の~/mapを保存したいファイル名に変更して実行するように書いた方が良いと思います。コマンド通りに打ち込んでしまうと常に地図を上書き保存してしまい、前の地図が消えてしまうというようなトラブルに陥ってしまいます。（それで困っている人が何人かいました）
 {% endcapture %}
 <div class="notice--danger">{{ note01 | markdownify }}</div>
