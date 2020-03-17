@@ -377,7 +377,6 @@ space key, s : force stop
 
 CTRL-C to quit
 ```
-{% capture note01 %}
-**注記** : Keyboard Teleoperationのturtlebot3_teleop_key.launchの説明にて、linearとangularが出てきますが、linearとangularがそれぞれ並進速度[m/s]と角速度[rad/s]であることを書いた方が親切だと思います。（ターミナルウィンドウを見れば、速度であることはわかりますが、念のため）
+
 {% endcapture %}
 <div class="notice--danger">{{ note01 | markdownify }}</div>
