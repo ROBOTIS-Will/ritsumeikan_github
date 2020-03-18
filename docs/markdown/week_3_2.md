@@ -177,7 +177,7 @@ move_group.launchを実行すると、move_groupノードが実行されます�
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
 ### ROBOTIS GUI GUIコントローラーを実行
-[Remote PC] ROBOTIS GUIは、OpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置（グリッパー間の赤い六面体）をリファレンスとするTask Space Controlや各ジョイント関節の角度をレファレンスとするJoint Space Controlをサポートします。
+[Remote PC] ROBOTIS GUIは、OpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置(グリッパー間の赤い六面体)をリファレンスとするTask Space Controlや各ジョイント関節の角度をレファレンスとするJoint Space Controlをサポートします。
 必要に応じて使いやすい制御方法を使用することができます。
 
 ```bash

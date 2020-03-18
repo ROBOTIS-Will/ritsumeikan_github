@@ -342,6 +342,3 @@ ROSにおいて地図は2次元Occupancy Grid map(OGM)を主に使用します�
 下のイメージは、cartographerを利用して広い領域の地図を作成した例です。以下のようなマップの生成は、約1時間程度の間に計350mの距離をロボットを操縦して作成したものです。
 
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/slam/large_map.png)
-
-{% endcapture %}
-<div class="notice--danger">{{ note01 | markdownify }}</div>

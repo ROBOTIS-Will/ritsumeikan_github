@@ -36,7 +36,7 @@ $ cd ~/catkin_ws && catkin_make
 
 仮想ロボットをスタートするためには、下記のようにturtlebot3_fakeのturtlebot3_fake.launchファイルを実行してください。turtlebot3_fakeは実際のロボットを使用しなくても実行できる非常に簡単なシミュレーションノードです。RVizで仮想TurtleBot３を遠隔操作ノードでコントロールできます。
 
-当コマンドを行う前にTurtleBot３のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piで使用するモデル名です。
+[Remote PC] 当コマンドを行う前にTurtleBot３のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piで使用するモデル名です。
 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -74,7 +74,7 @@ Gazeboを使ったシミュレーションには２つがあります。まず�
 Remote PCでGazeboを初めて実行する場合は普段より起動に時間がかかります。 
 
 ##### Empty World
-次のコマンドを使用して、Gazeboのデフォルト設定のWorldで、仮想TurtleBot３をテストする際に使用できます。 
+[Remote PC] 次のコマンドを使用して、Gazeboのデフォルト設定のWorldで、仮想TurtleBot３をテストする際に使用できます。 
 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -95,7 +95,7 @@ turtlebot3_empty_world.launchを実行すると、設定ファイルに従って
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/simulation/turtlebot3_empty_world.png)
 
 ##### TurtleBot３ World 
-TurtleBot３ Worldは、TurtleBot３のシンボルの形状を構成するシンプルなオブジェクトで構成されているマップです。TurtleBot３ Worldは、主にSLAMやNavigationのようなテストに使用されます。 
+[Remote PC] TurtleBot３ Worldは、TurtleBot３のシンボルの形状を構成するシンプルなオブジェクトで構成されているマップです。TurtleBot３ Worldは、主にSLAMやNavigationのようなテストに使用されます。 
  
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -106,7 +106,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 ![](http://emanual.robotis.com/assets/images/platform/turtlebot3/simulation/turtlebot3_world_waffle.png)
 
 ##### TurtleBot３ House 
-TurtleBot３ House は住居の図面で制作されたマップです。より複雑な作業の性能に関連するテストに適しています。 
+[Remote PC] TurtleBot３ House は住居の図面で制作されたマップです。より複雑な作業の性能に関連するテストに適しています。 
 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -120,7 +120,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_house.launch
 #### TurtleBot3 の駆動 
 
 ##### Gazeboの遠隔操作 
-TurtleBot3 をキーボードでコントロールするために、新しいターミナルで下記のコマンドを使って遠隔操作を実行します。 
+[Remote PC] TurtleBot3 をキーボードでコントロールするために、新しいターミナルで下記のコマンドを使って遠隔操作を実行します。 
 ```bash
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
@@ -128,19 +128,19 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 
 ##### 衝突回避 
-TurtleBot3 WorldでTurtleBot3を自律移動させるためには、新しいターミナルウィンドウを開いて下記のコマンドを入力してください。  
+[Remote PC] TurtleBot3 WorldでTurtleBot3を自律移動させるためには、新しいターミナルウィンドウを開いて下記のコマンドを入力してください。  
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 ```
-新しいターミナルウィンドウを一つ開いて下記のコマンドを入力してください。 
+[Remote PC] 新しいターミナルウィンドウを一つ開いて下記のコマンドを入力してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
 ```
 
 #### Rvizの実行 
-RVizはシミュレーションが実行されている間に発行されたトピックを視覚化します。下記のコマンドを入力し、新しいターミナルウィンドウでRVizをスタートすることができます。 
+[Remote PC] Rvizはシミュレーションが実行されている間に発行されたトピックを視覚化します。下記のコマンドを入力し、新しいターミナルウィンドウでRVizをスタートすることができます。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
 $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
@@ -155,20 +155,20 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
 ### ネットワーク構成案
 - 仮定
-  - すべてのTurtleBot3とユーザーPC（シミュレーション）は、固定IPアドレスを持つ。
+  - すべてのTurtleBot3とユーザーPC(シミュレーション)は、固定IPアドレスを持つ。
     ユーザーPCは固定IPアドレスでない場合でも動作可能だと思われるが、ROSネットワーク設定を容易にするために固定IPの使用を推奨。
   - 各ユーザーは、自分の使用するTurtleBot3のIPアドレスを知っている。
 
 1. 第1案  
-ルータを複数台使用（5台）、4台のTurtleBot3と8人（シミュレータ含む）が一つのルータを使用する（推奨）
+ルータを複数台使用(5台)、4台のTurtleBot3と8人(シミュレータ含む)が一つのルータを使用する(推奨)
 
 2. 第2案  
-高性能ルータに40人と20台のTurtleBot3すべてを接続（クライアントの要求）
+高性能ルータに40人と20台のTurtleBot3すべてを接続(クライアントの要求)
 
 ### ネットワーク設定(第1案)
 
 1. ルータ設定  
-    - SSIDおよびルータIP（IP帯域）：ルータごとに設定方法が異なるため、詳細な説明は省略
+    - SSIDおよびルータIP(IP帯域)：ルータごとに設定方法が異なるため、詳細な説明は省略
         - Turtlebot_Server_1 : 10.17.1.1 (10.17.1.x)
         - Turtlebot_Server_2 : 10.17.2.1 (10.17.2.x)
         - Turtlebot_Server_3 : 10.17.3.1 (10.17.3.x)
@@ -233,7 +233,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
 ### ネットワーク設定(第2案)
 1. ルータ設定
-    - SSIDおよびルータIP（IP帯域）：ルータごとに設定方法が異なるため、詳細な説明は省略
+    - SSIDおよびルータIP(IP帯域)：ルータごとに設定方法が異なるため、詳細な説明は省略
         - Turtlebot_Server : 10.17.1.1 (10.17.1.x)
 2. Turtlebot3 ネットワーク設定 (便宜上、固定IPを使用)
     - IPアドレスの例 
@@ -286,7 +286,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 2. [User PC]
     - 参考 : [e-Manual](http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration)
     - ユーザーPCのIP例: 10.17.1.101
-    - ユーザーPCのIPを確認（以下のコマンドを入力すると、上で設定したユーザーPCの静的IPが出力される。)
+    - ユーザーPCのIPを確認(以下のコマンドを入力すると、上で設定したユーザーPCの静的IPが出力される。)
         ```bash
         $ ifconfig
         ```
@@ -371,7 +371,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
             ```
             $ chmod +x ~/tb3_ssh_keygen
             ```
-        3. script実行（ex.TurtleBot3のIPアドレスが10.17.3.11〜30である場合、20台のTurtleBot3に固定IPを設定後、TurtleBot3が起動している状態でコマンドを実行する必要がある）
+        3. script実行(ex.TurtleBot3のIPアドレスが10.17.3.11〜30である場合、20台のTurtleBot3に固定IPを設定後、TurtleBot3が起動している状態でコマンドを実行する必要がある)
             ```
             $ ~/tb3_ssh_keygen 10.17.3.11 10.17.3.12 10.17.3.13 10.17.3.14 10.17.3.15\
             10.17.3.16 10.17.3.17 10.17.3.18 10.17.3.19 10.17.3.20\
@@ -418,7 +418,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
 
 ### TurtleBot3(実ロボット), シミュレーションの切り替え方法  
-すべてUser PC（Remote PC）で実行
+すべてUser PC(Remote PC)で実行
 1. TurtleBot3実行方法
     - roscore  
     ターミナルを開いて以下のコマンドを入力
@@ -427,7 +427,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
         ```
 
     - Turtlebot3 (リモート)駆動 : turtlebot3_robot_machine.launch  
-    別のターミナルを開いて、以下のコマンドを入力（接続しようとするTurtleBot3のIPアドレスが10.17.1.11であると仮定）  
+    別のターミナルを開いて、以下のコマンドを入力(接続しようとするTurtleBot3のIPアドレスが10.17.1.11であると仮定)  
     ```
     $ roslaunch turtlebot3_bringup turtlebot3_robot_machine.launch address:=10.17.1.11
     ```  
@@ -451,7 +451,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
         ```
 
     - Rviz  
-    新たにターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力）
+    新たにターミナルを開いて、以下のコマンドを入力(Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力)
         ```
         $ export TURTLEBOT3_MODEL=${TB3_MODEL}
         $ rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz
@@ -467,14 +467,14 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
         ```
 
     - Gazebo実行  
-    別のターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力）
+    別のターミナルを開いて、以下のコマンドを入力(Waffle Piを使用する場合は、$ {TB3_MODEL}の代わりにwaffle_piを入力)
         ```
         $ export TURTLEBOT3_MODEL=${TB3_MODEL}
         $ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
         ```
 
     - Rviz  
-    新たにターミナルを開いて、以下のコマンドを入力（Waffle Piを使用する場合は$ {TB3_MODEL}の代わりにwaffle_piを入力）
+    新たにターミナルを開いて、以下のコマンドを入力(Waffle Piを使用する場合は$ {TB3_MODEL}の代わりにwaffle_piを入力)
         ```
         $ export TURTLEBOT3_MODEL=${TB3_MODEL}
         $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
@@ -483,9 +483,9 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
 
 3. 使用切り替え
-    - リアルタイムでの切り替え：gazeboは/ use_sim_timeパラメータを使用しており、リアルタイムでの切り替え（roscoreを維持した切り替え）が困難
+    - リアルタイムでの切り替え：gazeboは/ use_sim_timeパラメータを使用しており、リアルタイムでの切り替え(roscoreを維持した切り替え)が困難
     - 切り替え方法
-        - roscoreを含むすべてのnodeを終了（実行したターミナルで`CTRL` + `C`キーを入力）
+        - roscoreを含むすべてのnodeを終了(実行したターミナルで`CTRL` + `C`キーを入力)
         - 上記の実行方法に従って切り替え
     - TurtleBot3 (実ロボット)とシミュレーションの比較
 

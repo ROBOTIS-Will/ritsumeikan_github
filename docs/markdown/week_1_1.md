@@ -45,7 +45,7 @@ sudo apt-get install ros-kinetic-desktop-full
 ```
 
 ### rosdepの初期化
-ROSを使用する前に、rosdepを初期化する必要があります。rosdepは、ROSで作成されたコードをコンパイルしたり、実行時に必要な関連パッケージ（公式的にはdependencyと呼びます）のインストールをサポートします。
+ROSを使用する前に、rosdepを初期化する必要があります。rosdepは、ROSで作成されたコードをコンパイルしたり、実行時に必要な関連パッケージ(公式的にはdependencyと呼びます)のインストールをサポートします。
 ```bash
 $ sudo rosdep init
 $ rosdep update
@@ -103,7 +103,7 @@ $ sudo apt-get install python-rosinstall python-rosinstall-generator python-wsto
 
 TurtleBot3の場合、ROS MasterがRemote PCで駆動します。  
 ROS基盤のTurtleBot3とRemote PCが互いに通信を行うためには、IPアドレスが設定されている必要があります。  
-このとき、Remote PCとTurtleBot3のPC（またはSBC）は同じルータに接続され、同じワイヤレスネットワークに接続される必要があります。
+このとき、Remote PCとTurtleBot3のPC(またはSBC)は同じルータに接続され、同じワイヤレスネットワークに接続される必要があります。
 
 ネットワークに接続後、以下のコマンドをRemote PCのターミナルウィンドウに入力して、IPアドレスを検索します。
 
@@ -185,7 +185,7 @@ $ rostopic list
 ```
 
 ### Turtlebot3のBringup 
-[Turtlebot3 PC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
+[Turtlebot3 SBC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
@@ -290,7 +290,7 @@ Subscribed topics:
 2. turtlebot3_lidar.launch
     - publish : scan
 
-turtlebot3_robot.launchファイルを実行すると、turtlebot3_core.launchとturtlebot3_lidar.launchファイルが実行され、TurtleBot3の状態をチェックするノード（node）であるturtlebot3_diagnosticsが生成され、TurtleBot3の各種センサやハードウェアの状態についての情報をpublishします。turtlebot3_core.launchファイルでは、OpenCRと通信してjoint_states、odomをpublishし、cmd_velをsubscribeするノードが生成されます。turtlebot3_lidar.launchファイルでは、LIDARを作動させ、センサーから得られたscanデータをpublishするノード（node）が生成されます。
+turtlebot3_robot.launchファイルを実行すると、turtlebot3_core.launchとturtlebot3_lidar.launchファイルが実行され、TurtleBot3の状態をチェックするノード(node)であるturtlebot3_diagnosticsが生成され、TurtleBot3の各種センサやハードウェアの状態についての情報をpublishします。turtlebot3_core.launchファイルでは、OpenCRと通信してjoint_states、odomをpublishし、cmd_velをsubscribeするノードが生成されます。turtlebot3_lidar.launchファイルでは、LIDARを作動させ、センサーから得られたscanデータをpublishするノード(node)が生成されます。
 {% endcapture %}
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
@@ -301,7 +301,7 @@ $ rqt_graph
 ![](/assets/images/ritsumeikan/009.png)
 
 ### RvizにTurtlebot3をLoad 
-[Remote PC]robot_state_publisherとRVizを実行してください。  
+[Remote PC] robot_state_publisherとRVizを実行してください。  
 当コマンドを行う前にTurtlebot3のモデル名を指定しなければなりません。$ {TB3_MODEL}は、burger、waffle、waffle_piの中で使用するモデル名を指定してください。exportの設定を永続化するためには、Export Turtlebot3_MODELのページを参照してください。 
 ```bash
 $ export TURTLEBOT3_MODEL=${TB3_MODEL}
@@ -340,10 +340,10 @@ rvizを実行すると、tfとscanデータをそれぞれロボットの姿勢�
 
 
 ## Keyboard Teleoperation
-TurtleBot3は、様々なデバイスで遠隔操作することができます。（Leap Motionは対象外）ここで示した実施例は、DYNAMIXEL,Raspberry pi3,OpenCR1.0,Ubuntu Mate16.04(ROS Kinetic)の構成で起動可能なPS3、XBOX 360、ROBOTIS RC100等の無線デバイスでテストされています。
+TurtleBot3は、様々なデバイスで遠隔操作することができます。(Leap Motionは対象外)ここで示した実施例は、DYNAMIXEL,Raspberry pi3,OpenCR1.0,Ubuntu Mate16.04(ROS Kinetic)の構成で起動可能なPS3、XBOX 360、ROBOTIS RC100等の無線デバイスでテストされています。
 
 ### シンプルな遠隔操作のノード
-Remote PCでturtlebot3_teleop_keyを起動します。
+[Remote PC] Remote PCでturtlebot3_teleop_keyを起動します。
 ```bash
 $ export TURTLEBOT3_MODEL=%{TB3_MODEL}
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
@@ -377,6 +377,3 @@ space key, s : force stop
 
 CTRL-C to quit
 ```
-
-{% endcapture %}
-<div class="notice--danger">{{ note01 | markdownify }}</div>
