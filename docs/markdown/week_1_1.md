@@ -185,7 +185,27 @@ $ rostopic list
 ```
 
 ### Turtlebot3のBringup 
+
+次の設置方法はROS 1 Kineticでのみ使用できます。
+
+{% capture kinetic-setting %}
+**注意**
+- Remote PCで ROS 1 Kinetic Kameバージョンを使ってTurtleBot3を駆動する場合、以下のコマンドをTurtleBot3のSBCで実行してください。コマンドを実行するとTurtleBot3パッケージの内容が`kinetic-devel`ブランチにアップデートされます。この作業を行うためにはインターネットに繋がっている必要があります。
+**$ cd ~/catkin_ws/src && rm -rf turtlebot3**  
+**$ git clone -b kinetic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git**  
+**$ cd ~/catkin_ws/src/turtlebot3**  
+**$ sudo rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/**  
+**$ cd ~/catkin_ws && catkin_make -j1**
+**$ source ~/.bashrc**
+
+- gitが設置されてなくてエラーが発生する場合、以下のコマンドでgitを設置してください。  
+**$ sudo apt install git** 
+{% endcapture %}
+<div class="notice--warning">{{ kinetic-setting | markdownify }}</div>
+
 [Turtlebot3 SBC] 以下のコマンドを入力し、Turtlebot3を起動してください。 
+以下のコマンドを実行する際発生するソフトウェアバージョンワーニングが実行に問題を起こすわけではありません。
+
 ```bash
 $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```

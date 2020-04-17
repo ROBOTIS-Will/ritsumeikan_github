@@ -170,7 +170,6 @@ SLAMでマップを作成する際、いくつかの注意点があります。
   $ export TURTLEBOT3_MODEL=${TB3_MODEL}
   $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
   ```
-
 {% capture capture02 %}
 **roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping**
 1. **roslaunch turtlebot3_bringup turtlebot3_remote.launch**
@@ -195,6 +194,9 @@ SLAMでマップを作成する際、いくつかの注意点があります。
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
 
+**참고** : 만약 위 명령어를 실행했을 때 SLAM이 Rviz 화면에서 정상적으로 실행되지 않는다면 Remote PC와 TurtleBot3 SBC에서 아래 명령어를 실행해서 두 PC의 시간을 동기화 시켜주세요.  
+**$ sudo ntpdate ntp.ubuntu.com**
+{: .notice--warning}
 
 ### TurtleBot3は、様々な方式のSLAMをサポートしています。
 Gmapping、cartographerといった複数のSLAMをサポートし、コマンド上で`slam_methods`のパラメータ値として直接入力することにより、選択することができます。
@@ -231,9 +233,19 @@ $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=cartographer
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
 デフォルトで提供しているGmapping以外のSLAMを使用するには、以下のように関連パッケージをインストールする必要があります。
-- cartographerをインストール：現時点で最新バージョンのcartographer(v1.0.0)は、2018年以来アップデートされておらず、TurtleBot3パッケージでシミュレーション行う場合、正常に駆動しない場合があります。TurtleBot3のSLAMをシミュレーションする際にはGmappingを使用してください。
+- cartographerをインストール：現時点で最新バージョンのcartographer(v1.0.0)は、2018年以来アップデートされておらず、TurtleBot3パッケージでシミュレーション行う場合、正常に駆動しない場合があります。TurtleBot3のSLAMをシミュレーションする際にはGmappingを使用してください。  
+次の設置方法はROS1 Kineticでのみ使用できます。  
   ```bash
-  $ sudo apt-get install ros-kinetic-cartographer ros-kinetic-cartographer-ros ros-kinetic-cartographer-ros-msgs ros-kinetic-cartographer-rviz
+  $ sudo apt-get install ninja-build libceres-dev libprotobuf-dev protobuf-compiler libprotoc-dev
+  $ cd ~/catkin_ws/src
+  $ git clone https://github.com/googlecartographer/cartographer.git
+  $ git clone https://github.com/googlecartographer/cartographer_ros.git
+  $ cd ~/catkin_ws
+  $ src/cartographer/scripts/install_proto3.sh
+  $ rm -rf protobuf/
+  $ rosdep install --from-paths src --ignore-src -r -y --os=ubuntu:xenial
+  $ catkin_make_isolated --install --use-ninja
+  $ source ~/catkin_ws/install_isolated/setup.bash
   ```
 - Hector Mappingをインストール
   ```bash

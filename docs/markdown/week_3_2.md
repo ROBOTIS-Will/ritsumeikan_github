@@ -63,10 +63,10 @@ $ roslaunch turtlebot3_manipulation_moveit_config move_group.launch
 [Remote PC]ここでは、Gmappingを活用したSLAMを実行します。
 
 ```bash
-$ roslaunch turtlebot3_slam turtlebot3_manipulation_slam.launch
+$ roslaunch turtlebot3_manipulation_slam slam.launch
 ```
 {% capture capture06 %}
-**roslaunch turtlebot3_slam turtlebot3_manipulation_slam.launch**
+**roslaunch turtlebot3_manipulation_slam slam.launch**
 1. **urdf**
   - Unified Robot Description Formatの略で、ロボットの構成と接続形態を表すXML形式のファイルです。
 2. **robot_state_publisher**
@@ -115,10 +115,10 @@ $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 [Remote PC] 以下のコマンドを実行すると、Navigationの実行に必要な様々なパラメータと地図、GUI環境を作るためのURDFやRviz環境設定などを読み込みます。多くのノードが同時に実行される実行ファイルであるため、実行されるファイルとノードを最初に確認してから実行してください。
 
 ```bash
-$ roslaunch turtlebot3_manipulation_navigation navigation.launch
+$ roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=$HOME/map.yaml
 ```
 {% capture capture07 %}
-**roslaunch turtlebot3_manipulation_navigation navigation.launch**
+**roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=$HOME/map.yaml**
 1. **urdf**
   - TurtleBot3とOpenMANIPULATORが結合した形のturtlebot3_manipulation_robot.urdf.xacroファイルを読み込みます。このファイルでは、TurtleBot3の形態を記述したファイルと、OpenMANIPULATORの形態を記述したファイルを結合し、全体的なロボットの形を作り上げます。
 2. **robot_state_publisher**
@@ -176,7 +176,7 @@ move_group.launchを実行すると、move_groupノードが実行されます�
 {% endcapture %}
 <div class="notice--success">{{ capture03 | markdownify }}</div>
 
-### ROBOTIS GUI GUIコントローラーを実行
+### ROBOTIS GUIコントローラーを実行
 [Remote PC] ROBOTIS GUIは、OpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置(グリッパー間の赤い六面体)をリファレンスとするTask Space Controlや各ジョイント関節の角度をレファレンスとするJoint Space Controlをサポートします。
 必要に応じて使いやすい制御方法を使用することができます。
 
