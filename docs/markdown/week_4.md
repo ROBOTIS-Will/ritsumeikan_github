@@ -85,7 +85,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
 
 ### 実行画面
 
-![](/assets/images/ritsumeikan/week4_01.png)
+![](/ritsumeikan_github/assets/images/ritsumeikan/week4_01.png)
 
 > 画面左：rostopic echo /object_detection_3dによる出力が表示されている。
 
@@ -189,7 +189,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
 ### 目標
 ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Look Once）はリアルタイム物体探索システムで、他の物体認識エンジンに比べて高速性を誇る。YOLOはDNN（deep neural network）を学習させて実行するニューラルネットワークフレームワーク（neural network framework）であるdarknetを利用して駆動。
 
-![](/assets/images/ritsumeikan/week4_02.png)
+![](/ritsumeikan_github/assets/images/ritsumeikan/week4_02.png)
 
 ### 動作環境
 - Ubuntu 16.04
@@ -251,7 +251,7 @@ ROS環境でYOLOを使用して物体の認識を試みる。YOLO（You Only Loo
 
 ### 実行画面
 
-![](/assets/images/ritsumeikan/week4_03.png)
+![](/ritsumeikan_github/assets/images/ritsumeikan/week4_03.png)
 
 > 上の写真のように複数の物体が同時に認識され、認識された物体の境界にボックスが表示され、物体の名前がボックスの左上に現れる。
 
