@@ -11,7 +11,7 @@ title                    : "Ritsumeikan TB3"
 title_separator          : "-"
 name                     : "Ritsumeikan"
 description              : "Ritsumeikan TB3"
-url                      : "https://github.com/ROBOTIS-Will/ritsumeikan_github"
+url                      : "https://robotis-will.github.io/ritsumeikan_github"
 baseurl                  : 
 repository               : ROBOTIS-Will/ritsumeikan_github
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
