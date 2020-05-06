@@ -11,9 +11,9 @@ title                    : "Ritsumeikan TB3"
 title_separator          : "-"
 name                     : "Ritsumeikan"
 description              : "Ritsumeikan TB3"
-url                      : "https://robotis-will.github.io"
+url                      : "https://nobutakashimada.github.io"
 baseurl                  : 
-repository               : ROBOTIS-Will/ritsumeikan_github
+repository               : NobutakaShimada/ritsumeikan_github
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
