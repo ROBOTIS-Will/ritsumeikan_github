@@ -194,9 +194,10 @@ SLAMでマップを作成する際、いくつかの注意点があります。
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
 
-**참고** : 만약 위 명령어를 실행했을 때 SLAM이 Rviz 화면에서 정상적으로 실행되지 않는다면 Remote PC와 TurtleBot3 SBC에서 아래 명령어를 실행해서 두 PC의 시간을 동기화 시켜주세요.  
+**参照**  
+上のコマンドを実行した際SLAMがRviz画面上で正常に実行されない場合、Remote PCとTurtleBot3 SBCで以下のコマンドを実行してシステムクロックを同期化してください。  
 **$ sudo ntpdate ntp.ubuntu.com**
-{: .notice--warning}
+{: .notice}
 
 ### TurtleBot3は、様々な方式のSLAMをサポートしています。
 Gmapping、cartographerといった複数のSLAMをサポートし、コマンド上で`slam_methods`のパラメータ値として直接入力することにより、選択することができます。

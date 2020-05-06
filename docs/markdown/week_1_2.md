@@ -280,6 +280,11 @@ $ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
                 ![](/assets/images/ritsumeikan/006.png)
 
 ### ROS ネットワーク設定
+ここでのROSネットワーク設定は前に使用した方法とは違う新しい方法です。この方法を適用するとこれからはRemotePCでTurtlebotのSBCに接続して`roslaunch turtlebot3_bringup turtlebot3_robot.launch`を実行する必要がありません。設定が終わった後からはRemote PCに直接以下のコマンドをTurtleBot3のIP住所と一緒に入力することでネットワークに接続されたTurtleBot3を駆動することが出来ます。
+```bash
+roslaunch turtlebot3_bringup turtlebot3_robot_machine.launch address:=${IP_ADDRESS_of_TB3}
+```
+
 1. [TurtleBot3]
     - 追加でROSネットワーク設定を行う必要なし
 

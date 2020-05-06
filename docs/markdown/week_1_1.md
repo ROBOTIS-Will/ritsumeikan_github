@@ -190,7 +190,7 @@ $ rostopic list
 
 {% capture kinetic-setting %}
 **注意**
-- Remote PCで ROS 1 Kinetic Kameバージョンを使ってTurtleBot3を駆動する場合、以下のコマンドをTurtleBot3のSBCで実行してください。コマンドを実行するとTurtleBot3パッケージの内容が`kinetic-devel`ブランチにアップデートされます。この作業を行うためにはインターネットに繋がっている必要があります。
+- Remote PCで ROS 1 Kinetic Kameバージョンを使ってTurtleBot3を駆動する場合、以下のコマンドをTurtleBot3のSBCで実行してください。コマンドを実行するとTurtleBot3パッケージの内容が`kinetic-devel`ブランチにアップデートされます。この作業を行うためにはインターネットに繋がっている必要があります。  
 **$ cd ~/catkin_ws/src && rm -rf turtlebot3**  
 **$ git clone -b kinetic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git**  
 **$ cd ~/catkin_ws/src/turtlebot3**  

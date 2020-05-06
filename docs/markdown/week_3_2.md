@@ -92,8 +92,9 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 [Remote PC] 地図が完成した後、map_saverノードを実行して地図ファイルを保存します。
 ```bash
-$ rosrun map_server map_saver -f ~/map
+$ rosrun map_server map_saver -f ~/${map_name}
 ```
+<-f>オプションは、地図ファイルを保存する場所とファイル名を指定します。上のコマンドでは、～/${map_name}オプションが使用されているため、ユーザーのhomeフォルダ(～/または/home/<username>)に ${map_name}.pgmと${map_name}.yamlファイルとして保存されます。${map_name}に保存したいファイル名を入力してください。
 
 # Navigation
 OpenMANIPULATORを組み付けたTurtleBot3のNavigationは、基本TurtleBot3のプラットフォームで実行するNavigationと大きな差異はありません。ただし、SLAMと同様にLDSセンサの範囲を指定しておくことが望ましく、Navigationの途中で必要な場合、OpenMANIPULATORを駆動するためにロボットアームとグリッパーを制御する関連ノードを実行することができます。
@@ -115,10 +116,10 @@ $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
 [Remote PC] 以下のコマンドを実行すると、Navigationの実行に必要な様々なパラメータと地図、GUI環境を作るためのURDFやRviz環境設定などを読み込みます。多くのノードが同時に実行される実行ファイルであるため、実行されるファイルとノードを最初に確認してから実行してください。
 
 ```bash
-$ roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=$HOME/map.yaml
+$ roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=~/${map_name}.yaml
 ```
 {% capture capture07 %}
-**roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=$HOME/map.yaml**
+**roslaunch turtlebot3_manipulation_navigation navigation.launch map_file:=~/${map_name}.yaml**
 1. **urdf**
   - TurtleBot3とOpenMANIPULATORが結合した形のturtlebot3_manipulation_robot.urdf.xacroファイルを読み込みます。このファイルでは、TurtleBot3の形態を記述したファイルと、OpenMANIPULATORの形態を記述したファイルを結合し、全体的なロボットの形を作り上げます。
 2. **robot_state_publisher**

@@ -20,7 +20,7 @@ OpenMANIPULATOR-Xは、ROSをサポートするROBOTISのオープンソース�
 $ cd ~/catkin_ws/src/
 $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_manipulation.git
 $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_manipulation_simulations.git
-$ sudo apt install ros-kinetic-control-toolbox && ros-kinetic-moveit*
+$ sudo apt install ros-kinetic-ros-control && ros-kinetic-ros-controllers && ros-kinetic-control* && ros-kinetic-moveit*
 $ cd ~/catkin_ws && catkin_make
 ```
 
@@ -133,7 +133,9 @@ MoveItが有効になったRvizが実行されます。Motion Planning pluginが
 
 ![](/assets/images/ritsumeikan/tb3_omx_rviz.png)
 
-**주의** : MoveIt!의 Interactive Marker를 활용하여 OpenMANIPULATOR-X를 제어할 경우 OpenMANIPULATOR-X의 기구적인 구성(4DOF + Gripper)과 MoveIt! 소프트웨어의 제약으로 인해 자유로운 제어가 어려울 수 있습니다.
+**注意**  
+MoveIt!のInteractive Markerを活用してOpenMANIPULATORーXをコントロールする場合、MoveIt! ソフトウェアの気候学解析に限界があり、円滑なコントロールが出来ない可能性があります。
+{: .notice--warning}
 
 ## ROBOTIS GUIコントローラーを実行
 [Remote PC] Rvizを使用せずにGazeboと接続し、ロボットアームを制御する場合は、ロボティズGUIはOpenMANIPULATORの1番目のDYNAMIXELを基準にグリッパーの有効な把持位置(グリッパー間の赤い六面体)をリファレンスとするTask Space Controlや各ジョイント関節の角度を基準とするJoint Space Controlをサポートします。
@@ -177,7 +179,8 @@ $ roslaunch turtlebot3_manipulation_bringup turtlebot3_manipulation_bringup.laun
 {% capture capture02 %}
 **roslaunch turtlebot3_manipulation_bringup turtlebot3_manipulation_bringup.launch**
 **turtlebot3_manipulation_bringupノード**
-  - turtlebot3_manipulation_bringup.launchを実行すると、arm_controllerとgripper_controllerこれら2つのコントローラーが実行されます。move_groupと通信するaction serverコントローラーの役割として、それぞれmove_groupを介してアームとグリッパー関節の目標軌跡を読み込み、順にpublishします。publishされたトピックは、OpenCRを介してロボットの関節に組み込まれたDYNAMIXELに伝達され、OpenMANIPULATORを動かします。
+
+turtlebot3_manipulation_bringup.launchを実行すると、arm_controllerとgripper_controllerこれら2つのコントローラーが実行されます。move_groupと通信するaction serverコントローラーの役割として、それぞれmove_groupを介してアームとグリッパー関節の目標軌跡を読み込み、順にpublishします。publishされたトピックは、OpenCRを介してロボットの関節に組み込まれたDYNAMIXELに伝達され、OpenMANIPULATORを動かします。
 {% endcapture %}
 <div class="notice--success">{{ capture02 | markdownify }}</div>
 
