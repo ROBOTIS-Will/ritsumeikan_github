@@ -53,7 +53,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
         ```
     - object_detector_3d ソースコードをダウンロード
         ```
-        $ git clone https://github.com/ROBOTIS-GIT/object_detector_3d.git
+        $ git clone https://github.com/NobutakaShimada/object_detector_3d.git
         ```
     - modelをダウンロード(github lfsを利用)
         - github lfs をインストール
