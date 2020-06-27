@@ -14,6 +14,7 @@ header:
 ---
 
 **Ritsumeikan Coursebook**
+test is test
 
 - [Week 1-1](https://nobutakashimada.github.io/ritsumeikan_github/docs/ritsumeikan/week1-1)
 - [Week 1-2](https://nobutakashimada.github.io/ritsumeikan_github/docs/ritsumeikan/week1-2)
