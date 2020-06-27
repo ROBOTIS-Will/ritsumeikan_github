@@ -85,7 +85,7 @@ Machine Learningフレームワークの一つであるchainerを利用して物
 
 ### 実行画面
 ![](/ritsumeikan_github/assets/images/ritsumeikan/week4_01.png)
-<!ｰｰ
+<!--
 ![](https://github.com/NobutakaShimada/ritsumeikan_github/blob/master/assets/images/ritsumeikan/week4_01.png)
 -->
 
