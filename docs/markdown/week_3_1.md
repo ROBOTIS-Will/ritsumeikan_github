@@ -89,10 +89,10 @@ OpenCRのファームウェアが変更されたため、turtlebot3_robot.launch
 ## Gazeboシミュレータの実行
 [Remote PC] 以下のコマンドを新たなターミナルウィンドウに入力し、OpenMANIPULATORが適用されたTurtleBot3のモデルをGazebo環境でロードします。
 ```bash
-$ roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation.launch
+$ roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation_gazebo.launch
 ```
 {% capture capture02 %}
-**roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation.launch**
+**roslaunch turtlebot3_manipulation_gazebo turtlebot3_manipulation_gazebo.launch**
 
 Gazebo上にOpenMANIPULATORが結合されたTurtleBot3 Waffle Piモデルがロードされ、ロボットと通信する2つのロボットコントローラであるarm_controller、gripper_controllerが実行されます。これらはそれぞれ、ロボットアームの関節とグリッパーを制御するコントローラーです。
 方式は、実際のロボットを使用する場合と同じです。以下のコードを実行し、move_groupと通信してロボットを制御します。
