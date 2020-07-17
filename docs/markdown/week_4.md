@@ -32,14 +32,13 @@ Machine Learningフレームワークの一つであるchainerを利用して物
     ```
 
 3. 依存パッケージをインストール
+    - pipがない場合はインストール
+        ```
+        $ sudo apt install python-pip
+        ```
     - chainer, chainercv
         ```
         $ pip install chainer chainercv
-        ```
-        > pipがない場合はインストール
-        
-        ```
-        $ sudo apt install python-pip
         ```
     - ros_numpy
         ```
